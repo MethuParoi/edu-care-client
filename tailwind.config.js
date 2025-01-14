@@ -4,6 +4,9 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      colors: {
+        accentHover: "#fca5a5",
+      },
       fontFamily: {
         poppins: ["poppins", "serif"],
       },
@@ -18,6 +21,7 @@ export default {
           secondary: "#3282B8",
           // accent: "#BBE1FA",
           accent: "#FFC7C7",
+          accentHover: "#fca5a5",
           neutral: "#F1F8E8",
           "base-100": "#ffffff",
           "base-200": "#EEEEEE",

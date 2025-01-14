@@ -208,10 +208,10 @@ function Navbar({ toggleTheme, currentTheme }) {
           </div>
         )}
         {showUserName && (
-          <div className="text-gray-700 dark:text-white font-medium text-xl bg-blue-800 border-transparent absolute top-16 right-8 px-2 py-1 rounded-md">
+          <div className="text-gray-700 dark:text-white font-medium text-xl bg-blue-800 border-transparent absolute top-16 right-8 px-2 py-1 rounded-md z-50">
             <ul className="menu menu-box gap-y-2">
               <li>
-                <button className="btn bg-accent w-[100%]">
+                <button className="btn bg-accent hover:accentHover w-[100%]">
                   {user.displayName}
                 </button>
               </li>
@@ -222,7 +222,10 @@ function Navbar({ toggleTheme, currentTheme }) {
                 </button>
               </li>
               <li>
-                <button className="btn bg-accent hover:bg-accentHover w-[100%]">
+                <button
+                  onClick={() => handleLogout()}
+                  className="btn bg-accent hover:bg-accentHover w-[100%]"
+                >
                   Logout
                 </button>
               </li>

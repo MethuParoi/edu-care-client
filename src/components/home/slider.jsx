@@ -88,7 +88,7 @@ const Slider = () => {
               />
               <div
                 onClick={handlePrevPage}
-                className="z-10 absolute bottom-1/2 left-4"
+                className="z-10 absolute top-32 left-4"
               >
                 <button className="bg-gray-800 bg-opacity-60 text-white p-2 rounded-full flex justify-center items-center">
                   <FaAngleLeft size={13} />
@@ -97,7 +97,7 @@ const Slider = () => {
 
               <div
                 onClick={handleNextPage}
-                className="z-10 absolute bottom-1/2 right-4"
+                className="z-10 absolute top-32 right-4"
               >
                 <button className="bg-gray-800 bg-opacity-60 text-white p-2 rounded-full flex justify-center items-center">
                   <FaAngleRight size={13} />

@@ -3,9 +3,9 @@ import Slider from "./slider";
 
 const Hero = () => {
   return (
-    <div className="flex flex-col md:flex-row justify-around gap-y-10 ">
+    <div className="flex flex-col md:flex-row justify-around gap-y-10 md:gap-y-0 h-[680px] sm:h-[600px] md:h-[450px] lg:h-[500px] xl:h-[450px]">
       <div className="w-full md:w-1/2 md:mr-12">
-        <h3 className="text-lg lg:text-xl font-bold text-accentHover Nunito Sans mb-4">
+        <h3 className="text-lg lg:text-xl font-bold text-accentHover nunitoSans-font mb-4">
           Smart Living Made Simple
         </h3>
         <h1 className="text-3xl lg:text-5xl font-bold text-primary nanumMyeongjo-font mb-6">

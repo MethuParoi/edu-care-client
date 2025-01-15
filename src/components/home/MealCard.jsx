@@ -7,7 +7,7 @@ import { FaBangladeshiTakaSign, FaRegStarHalfStroke } from "react-icons/fa6";
 function MealCard({ meal }) {
   const navigate = useNavigate();
   const handleExplore = () => {
-    navigate(`/food-details/${meal._id}`);
+    navigate(`/meal-details/${meal._id}`);
   };
   return (
     <div
@@ -50,7 +50,7 @@ function MealCard({ meal }) {
         <button
           onClick={() => {
             handleExplore();
-            setDetails(meal);
+            // setDetails(meal);
           }}
           className="w-[100%] h-12 bg-secondary hover:bg-teal-700 text-neutral dark:bg-gray-500 dark:hover:bg-gray-600 dark:text-white text-lg font-medium rounded-2xl  flex items-center justify-center mx-auto mt-4"
         >

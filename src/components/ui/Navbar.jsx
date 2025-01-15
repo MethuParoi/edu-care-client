@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../provider/AuthProvider";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import { FaMoon } from "react-icons/fa6";
 import { MdWbSunny } from "react-icons/md";
@@ -25,6 +25,21 @@ function Navbar({ toggleTheme, currentTheme }) {
       }
     }
   };
+
+  const menuRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setShowUserName(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [menuRef]);
 
   return (
     <div className="navbar bg-secondary pr-6">
@@ -68,7 +83,7 @@ function Navbar({ toggleTheme, currentTheme }) {
                 }}
                 className="text-neutral"
               >
-                {user ? user.displayName || user.email : "Signup"}
+                {user ? user?.displayName || user.email : "Signup"}
               </button>
             </li>
             <li>
@@ -208,11 +223,14 @@ function Navbar({ toggleTheme, currentTheme }) {
           </div>
         )}
         {showUserName && (
-          <div className="text-gray-700 dark:text-white font-medium text-xl bg-blue-800 border-transparent absolute top-16 right-8 px-2 py-1 rounded-md z-50">
+          <div
+            ref={menuRef}
+            className="text-gray-700 dark:text-white font-medium text-xl bg-blue-800 border-transparent absolute top-16 right-8 px-2 py-1 rounded-md z-50"
+          >
             <ul className="menu menu-box gap-y-2">
               <li>
                 <button className="btn bg-accent hover:accentHover w-[100%]">
-                  {user.displayName}
+                  {user?.displayName}
                 </button>
               </li>
               {/* <li>{user.displayName}</li> */}

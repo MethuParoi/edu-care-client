@@ -7,7 +7,7 @@ import { AiFillProduct } from "react-icons/ai";
 import { CiCalendarDate } from "react-icons/ci";
 import { IoLocation } from "react-icons/io5";
 import Button from "../components/ui/Button";
-import { useMealDetails } from "../utils/fetchApi";
+import { useMealDetails } from "../utils/fetchMeals";
 import { FaBangladeshiTakaSign } from "react-icons/fa6";
 // import RequestModal from "../components/food-details/RequestModal";
 

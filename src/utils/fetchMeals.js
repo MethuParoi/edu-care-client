@@ -1,9 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import useAxiosSecure, { axiosSecure } from "../hooks/useAxiosSecure";
+import useAxiosPublic from "../hooks/useAxiosPublic";
 
 export function useFeaturedMeal(mealType) {
-  const axiosSecure = useAxiosSecure();
-
+  const axiosPublic = useAxiosPublic();
   const {
     isLoading,
     data: featuredMeal,
@@ -12,7 +11,7 @@ export function useFeaturedMeal(mealType) {
   } = useQuery({
     queryKey: ["featuredMeal", mealType],
     queryFn: async () => {
-      const response = await axiosSecure.get("/get-featured-meal", {
+      const response = await axiosPublic.get("/meal/get-featured-meal", {
         params: { mealType },
       });
       if (response.status !== 200) {
@@ -26,6 +25,8 @@ export function useFeaturedMeal(mealType) {
 }
 
 export function useMealDetails(id) {
+  const axiosPublic = useAxiosPublic();
+
   const {
     isLoading,
     data: mealDetails,
@@ -33,7 +34,7 @@ export function useMealDetails(id) {
   } = useQuery({
     queryKey: ["mealDetails", id],
     queryFn: async () => {
-      const response = await axiosSecure.get(`/get-meal-details/${id}`);
+      const response = await axiosPublic.get(`/meal/get-meal-details/${id}`);
       if (response.status !== 200) {
         throw new Error("Network response was not ok");
       }

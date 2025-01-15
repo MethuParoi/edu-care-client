@@ -11,15 +11,13 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { FaGoogle } from "react-icons/fa6";
 import { useForm } from "react-hook-form";
+import useAxiosPublic from "../hooks/useAxiosPublic";
 
 const Register = () => {
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
-  useEffect(() => {
-    const pageTitle = "eco-adventure | Sign Up";
-    document.title = pageTitle;
-  }, [location]);
   const navigate = useNavigate();
+  const axiosPublic = useAxiosPublic();
 
   const { createUser, googleSignIn } = useContext(AuthContext);
 
@@ -59,10 +57,19 @@ const Register = () => {
     createUser(data.email, data.password)
       .then((userCredential) => {
         const user = userCredential.user;
+        // Save user data to MongoDB
+        const userInfo = {
+          name: data.username,
+          email: data.email,
+        };
+        axiosPublic.post("/user/add-user-data", userInfo).then((res) => {
+          if (res.data.insertedId) {
+            reset(); // Reset form data
+            toast.success("User registered successfully!");
+            navigate(from, { replace: true });
+          }
+        });
 
-        reset(); // Reset form data
-        toast.success("User registered successfully!");
-        navigate(from, { replace: true });
         // update user profile
         updateProfile(auth.currentUser, {
           displayName: data.username,
@@ -105,8 +112,14 @@ const Register = () => {
               id="username"
               {...register("username", {
                 required: "Username is required",
-                minLength: { value: 3, message: "must be at least 3 characters long" },
-                maxLength: { value: 20, message: "cannot exceed 20 characters" },
+                minLength: {
+                  value: 3,
+                  message: "must be at least 3 characters long",
+                },
+                maxLength: {
+                  value: 20,
+                  message: "cannot exceed 20 characters",
+                },
               })}
               autoComplete="name"
               placeholder="Enter a username"

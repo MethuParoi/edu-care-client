@@ -1,5 +1,5 @@
 import { act, useEffect, useState } from "react";
-import { useFeaturedMeal } from "../../utils/fetchApi";
+import { useFeaturedMeal } from "../../utils/fetchMeals";
 import TabRow from "./TabRow";
 import Loader from "../ui/Loader/Loader";
 import { use } from "react";

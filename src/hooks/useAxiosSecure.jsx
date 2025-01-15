@@ -1,5 +1,4 @@
 import axios from "axios";
-import { use } from "react";
 
 export const axiosSecure = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
@@ -7,19 +6,18 @@ export const axiosSecure = axios.create({
     "Content-Type": "application/json",
   },
 });
-    // axiosSecure.interceptors.request.use(
-    // (config) => {
-    // const token = localStorage.getItem("token");
-    // if (token) {
-    // config.headers.Authorization = `Bearer ${token}`;
-    // }
-    // return config;
-    // }
-    // );
+// axiosSecure.interceptors.request.use(
+// (config) => {
+// const token = localStorage.getItem("token");
+// if (token) {
+// config.headers.Authorization = `Bearer ${token}`;
+// }
+// return config;
+// }
+// );
 
 const useAxiosSecure = () => {
-        return axiosSecure;
-
+  return axiosSecure;
 };
 
 export default useAxiosSecure;

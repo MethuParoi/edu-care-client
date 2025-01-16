@@ -9,7 +9,8 @@ import { PiBowlFood } from "react-icons/pi";
 import { GiHamburgerMenu } from "react-icons/gi";
 
 const Drawer = () => {
-  const [isAdmin, setIsAdmin] = useState(true);
+  //TODO: fetch is admin from the server
+  const [isAdmin, setIsAdmin] = useState(false);
   const location = useLocation();
 
   const getLinkClass = (path) => {

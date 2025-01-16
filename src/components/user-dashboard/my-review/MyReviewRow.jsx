@@ -1,12 +1,6 @@
-import axios from "axios";
-import { useContext } from "react";
-import { AuthContext } from "../../provider/AuthProvider";
-
-const UserRow = ({ username, email, subscription_status, _id }) => {
-  const { link } = useContext(AuthContext);
-
+const MyReviewRow = ({ username, email, subscription_status, _id }) => {
   return (
-    <div className="grid grid-cols-4 gap-y-4 justify-items-center w-[90%] xl:w-[1000px] mx-auto bg-[#3282B8] p-4 my-4 rounded-xl">
+    <div className="grid grid-cols-4 gap-y-4 justify-items-center w-[1000px] md:w-[90%] xl:w-[1000px] mx-auto bg-[#3282B8] p-4 my-4 rounded-xl">
       <p className="text-lg xl:text-xl font-medium text-gray-300 line-clamp-1">
         {username}
       </p>
@@ -26,4 +20,4 @@ const UserRow = ({ username, email, subscription_status, _id }) => {
   );
 };
 
-export default UserRow;
+export default MyReviewRow;

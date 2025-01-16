@@ -1,4 +1,4 @@
-import UserRow from "../../../components/manage-user/UserRow";
+import UserRow from "../../../components/admin-dashboard/manage-user/UserRow";
 import { useFetchAllUser } from "../../../utils/fetchUsers";
 
 const ManageUser = () => {
@@ -16,7 +16,7 @@ const ManageUser = () => {
       {/* table */}
       {allUser?.length > 0 && (
         <div className="w-[90%] xl:max-w-[1000px] mx-auto  overflow-x-scroll max-h-[500px] overflow-y-auto mb-20">
-          <div className="grid grid-cols-4 gap-y-16 justify-items-center  w-[90%] xl:w-[1000px]  overflow-x-scroll mx-auto bg-[#3282B8] p-4 rounded-xl">
+          <div className="grid grid-cols-4 gap-y-16 justify-items-center  w-[1000px] md:w-[90%] xl:w-[1000px]  overflow-x-scroll mx-auto bg-[#3282B8] p-4 rounded-xl">
             <p className="text-lg xl:text-xl  font-semibold text-gray-300">
               User Name
             </p>

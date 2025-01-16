@@ -10,7 +10,7 @@ const Tabs = () => {
     useFeaturedMeal(activeTab);
 
   return (
-    <div role="tablist" className="tabs tabs-lifted min-h-[300px]">
+    <div role="tablist" className="tabs tabs-lifted ">
       {/* breakfast tab */}
       <input
         type="radio"
@@ -23,7 +23,7 @@ const Tabs = () => {
       />
       <div
         role="tabpanel"
-        className="tab-content bg-base-100 border-base-300 rounded-box p-6 "
+        className="tab-content bg-base-100 border-base-300 rounded-box p-6 min-h-[300px]"
       >
         {isLoading ? (
           <div className="flex justify-center items-center">
@@ -72,7 +72,9 @@ const Tabs = () => {
         className="tab-content bg-base-100 border-base-300 rounded-box p-6"
       >
         {isLoading ? (
-          <p>Loading...</p>
+          <div className="flex justify-center items-center">
+            <Loader />
+          </div>
         ) : error ? (
           <p>Error: {error.message}</p>
         ) : (
@@ -93,7 +95,9 @@ const Tabs = () => {
         className="tab-content bg-base-100 border-base-300 rounded-box p-6"
       >
         {isLoading ? (
-          <p>Loading...</p>
+          <div className="flex justify-center items-center">
+            <Loader />
+          </div>
         ) : error ? (
           <p>Error: {error.message}</p>
         ) : (

@@ -10,45 +10,44 @@ import {
   validateCaptcha,
 } from "react-simple-captcha";
 import { useForm } from "react-hook-form";
+import { Helmet } from "react-helmet-async";
+import useAxiosPublic from "../hooks/useAxiosPublic";
 
 const Login = () => {
-   const {
+  const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-
   const { user, loginUser, googleSignIn } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
+  const axiosPublic = useAxiosPublic();
 
-
-
-//validate captcha
+  //validate captcha
   useEffect(() => {
     loadCaptchaEnginge(6);
   }, []);
 
-   const handleValidateCaptcha = () => {
-     let user_captcha_value =
-       document.getElementById("user_captcha_input").value;
+  const handleValidateCaptcha = () => {
+    let user_captcha_value =
+      document.getElementById("user_captcha_input").value;
 
-     if (validateCaptcha(user_captcha_value) !== true) {
-       toast.error("Captcha Does Not Match");
-       return false;
-     }
-     return true;
-   };
-//------------------------------------
-
+    if (validateCaptcha(user_captcha_value) !== true) {
+      toast.error("Captcha Does Not Match");
+      return false;
+    }
+    return true;
+  };
+  //------------------------------------
 
   const onSubmit = async (data) => {
     // e.preventDefault();
     // validate captcha
     if (!handleValidateCaptcha()) {
-        return;
+      return;
     }
     try {
       await loginUser(data.email, data.password);
@@ -62,22 +61,32 @@ const Login = () => {
 
   const handleGoogleSignIn = async () => {
     try {
-      await googleSignIn();
-      navigate(from, { replace: true });
-      toast.success("User logged in successfully!");
+      await googleSignIn().then((result) => {
+        const userInfo = {
+          email: result?.user?.email,
+          name: result?.user?.displayName,
+        };
+        axiosPublic.post("/user/add-google-user-data", userInfo).then((res) => {
+          navigate(from, { replace: true });
+          toast.success("User logged in successfully!");
+        });
+      });
     } catch (error) {
       toast.error(error.message);
       console.error("Error logging in with Google:", error.message);
     }
   };
   //toggle password visibility
-    const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 px-4">
+      <Helmet>
+        <title>CloudHostel | Login</title>
+      </Helmet>
       <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
         <div className="">
           {user && (

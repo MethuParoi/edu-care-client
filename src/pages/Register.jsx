@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import { FaGoogle } from "react-icons/fa6";
 import { useForm } from "react-hook-form";
 import useAxiosPublic from "../hooks/useAxiosPublic";
+import { Helmet } from "react-helmet-async";
 
 const Register = () => {
   const location = useLocation();
@@ -23,9 +24,16 @@ const Register = () => {
 
   const handleGoogleSignIn = async () => {
     try {
-      await googleSignIn();
-      navigate(from, { replace: true });
-      toast.success("User logged in successfully!");
+      await googleSignIn().then((result) => {
+        const userInfo = {
+          email: result?.user?.email,
+          name: result?.user?.displayName,
+        };
+        axiosPublic.post("/user/add-google-user-data", userInfo).then((res) => {
+          navigate(from, { replace: true });
+          toast.success("User logged in successfully!");
+        });
+      });
     } catch (error) {
       toast.error(error.message);
       console.error("Error logging in with Google:", error.message);
@@ -95,6 +103,9 @@ const Register = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-50 px-4">
+      <Helmet>
+        <title>CloudHostel | Sign Up</title>
+      </Helmet>
       <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
         <h2 className="text-2xl font-bold text-center text-gray-700">
           Create an Account

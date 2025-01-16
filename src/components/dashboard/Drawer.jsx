@@ -10,7 +10,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 
 const Drawer = () => {
   //TODO: fetch is admin from the server
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(true);
   const location = useLocation();
 
   const getLinkClass = (path) => {

@@ -11,14 +11,15 @@ import { AuthContext } from "../../provider/AuthProvider";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const Drawer = () => {
-  //TODO: fetch is admin from the server
+  //fetch is admin from the server
   const { user } = useContext(AuthContext);
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
 
   useEffect(() => {
-    axiosSecure.get(`/user/check-admin/${user.email}`).then((res) => {
-      if (res.admin === true) {
+    axiosSecure.get(`/user/check-admin/${user?.email}`).then((res) => {
+      console.log(res);
+      if (res.data.admin === true) {
         setIsAdmin(true);
       }
     });
@@ -64,74 +65,107 @@ const Drawer = () => {
           {isAdmin ? (
             // admin menubar
             <>
-              <li className={getLinkClass("/dashboard/profile")}>
+              <li
+                onClick={() => navigate("/dashboard/profile")}
+                className={getLinkClass("/dashboard/profile")}
+              >
                 <div className="flex items-center justify-start gap-x-4">
                   <CgProfile className="text-red-300 text-3xl" />
-                  <Link to="/dashboard/profile">Admin Profile</Link>
+                  Admin Profile
                 </div>
               </li>
-              <li className={getLinkClass("/dashboard/manage-users")}>
+              <li
+                onClick={() => navigate("/dashboard/manage-users")}
+                className={getLinkClass("/dashboard/manage-users")}
+              >
                 <div className="flex items-center justify-start gap-x-4">
                   <FaUserFriends className="text-red-300 text-3xl" />
-                  <Link to="/dashboard/manage-users">Manage Users</Link>
+                  Manage Users
                 </div>
               </li>
-              <li className={getLinkClass("/dashboard/add-meal")}>
+              <li
+                onClick={() => navigate("/dashboard/add-meal")}
+                className={getLinkClass("/dashboard/add-meal")}
+              >
                 <div className="flex items-center justify-start gap-x-4">
                   <IoIosAddCircleOutline className="text-red-300 text-3xl" />
-                  <Link to="/dashboard/add-meal">Add Meal</Link>
+                  Add Meal
                 </div>
               </li>
-              <li className={getLinkClass("/dashboard/all-meals")}>
+              <li
+                onClick={() => navigate("/dashboard/all-meals")}
+                className={getLinkClass("/dashboard/all-meals")}
+              >
                 <div className="flex items-center justify-start gap-x-4">
                   <MdFastfood className="text-red-300 text-3xl" />
-                  <Link to="/dashboard/all-meals">All Meals</Link>
+                  All Meals
                 </div>
               </li>
-              <li className={getLinkClass("/dashboard/all-reviews")}>
+              <li
+                onClick={() => navigate("/dashboard/all-reviews")}
+                className={getLinkClass("/dashboard/all-reviews")}
+              >
                 <div className="flex items-center justify-start gap-x-4">
                   <MdOutlineRateReview className="text-red-300 text-3xl" />
-                  <Link to="/dashboard/all-reviews">All Reviews</Link>
+                  All Reviews
                 </div>
               </li>
-              <li className={getLinkClass("/dashboard/serve-meals")}>
+              <li
+                onClick={() => navigate("/dashboard/serve-meals")}
+                className={getLinkClass("/dashboard/serve-meals")}
+              >
                 <div className="flex items-center justify-start gap-x-4">
                   <MdFoodBank className="text-red-300 text-3xl" />
-                  <Link to="/dashboard/serve-meals">Serve Meals</Link>
+                  Serve Meals
                 </div>
               </li>
-              <li className={getLinkClass("/dashboard/upcoming-meals")}>
+              <li
+                onClick={() => navigate("/dashboard/upcoming-meals")}
+                className={getLinkClass("/dashboard/upcoming-meals")}
+              >
                 <div className="flex items-center justify-start gap-x-4">
                   <PiBowlFood className="text-red-300 text-3xl" />
-                  <Link to="/dashboard/upcoming-meals">Upcoming Meals</Link>
+                  Upcoming Meals
                 </div>
               </li>
             </>
           ) : (
             // user menubar
             <>
-              <li className={getLinkClass("/dashboard/profile")}>
+              <li
+                onClick={() => navigate("/dashboard/profile")}
+                className={getLinkClass("/dashboard/profile")}
+              >
                 <div className="flex items-center justify-start gap-x-4">
                   <CgProfile className="text-red-300 text-3xl" />
-                  <Link to="/dashboard/profile">My Profile</Link>
+                  My Profile
                 </div>
               </li>
-              <li className={getLinkClass("/dashboard/requested-meals")}>
+              <li
+                onClick={() => navigate("/dashboard/requested-meals")}
+                className={getLinkClass("/dashboard/requested-meals")}
+              >
                 <div className="flex items-center justify-start gap-x-4">
                   <MdFastfood className="text-red-300 text-3xl" />
-                  <Link to="/dashboard/requested-meals">Requested Meals</Link>
+                  Requested Meals
                 </div>
               </li>
-              <li className={getLinkClass("/dashboard/my-reviews")}>
+              <li
+                onClick={() => navigate("/dashboard/my-reviews")}
+                className={getLinkClass("/dashboard/my-reviews")}
+              >
                 <div className="flex items-center justify-start gap-x-4">
                   <MdOutlineRateReview className="text-red-300 text-3xl" />
-                  <Link to="/dashboard/my-reviews">My Reviews</Link>
+                  My Reviews
                 </div>
               </li>
-              <li className={getLinkClass("/dashboard/payment-history")}>
+              <li
+                onClick={() => navigate("/dashboard/payment-history")}
+                className={getLinkClass("/dashboard/payment-history")}
+              >
                 <div className="flex items-center justify-start gap-x-4">
                   <FaHistory className="text-red-300 text-3xl" />
-                  <Link to="/dashboard/payment-history">Payment History</Link>
+                  Payment History
                 </div>
               </li>
             </>

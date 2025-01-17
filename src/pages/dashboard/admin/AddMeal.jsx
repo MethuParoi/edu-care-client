@@ -4,11 +4,15 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "../../../provider/AuthProvider";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
 
 const AddMeal = () => {
   const { user } = useContext(AuthContext);
-  const user_email = user?.email;
+  const meal_id = Math.floor(Math.random() * 10000); //random 4 digit id
+  const distributor_name = user?.displayName;
+  const distributor_email = user?.email;
   const axiosSecure = useAxiosSecure();
+  const axiosPublic = useAxiosPublic();
 
   const {
     register,
@@ -16,23 +20,39 @@ const AddMeal = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    // TODO: add distributor name, admin name, and admin email
+  //upload image to imagebb
+  const image_hosting_api = `https://api.imgbb.com/1/upload?key=${
+    import.meta.env.VITE_IMGBB_API_KEY
+  }`;
+
+  const onSubmit = async (data) => {
+    const imageFile = { image: data.image[0] };
+    const res = await axiosPublic.post(image_hosting_api, imageFile, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    const mealImage = res.data.data.display_url;
+    // console.log(res.data);
+
     const mealData = {
       ...data,
-      user_email,
+      meal_id,
+      mealImage,
+      distributor_name,
+      distributor_email,
     };
-    // console.log(movieData);
-    axiosSecure
-      .post("/add-meal", mealData)
-      .then((res) => {
-        if (res.status === 200) {
-          toast.success("Meal added successfully!");
-        }
-      })
-      .catch((err) => {
-        toast.error("An error occurred. Please try again.");
-      });
+
+    // axiosSecure
+    //   .post("/add-meal", mealData)
+    //   .then((res) => {
+    //     if (res.status === 200) {
+    //       toast.success("Meal added successfully!");
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     toast.error("An error occurred. Please try again.");
+    //   });
   };
 
   return (
@@ -137,8 +157,8 @@ const AddMeal = () => {
           </div>
 
           {/* Meal Price */}
-          <div className="relative mb-8 lg:mb-0">
-            <label className="block mb-2 font-medium">Meal Price</label>
+          <div className="relative mb-8 lg:mb-0 lg:mt-[-40px] ">
+            <label className="block mb-2  font-medium">Meal Price</label>
             <input
               type="number"
               placeholder="Enter meal price "
@@ -160,7 +180,7 @@ const AddMeal = () => {
         </div>
 
         {/* Meal image and post time*/}
-        <div className="flex lg:flex-row flex-col lg:items-center lg:justify-between lg:w-[700px] lg:pt-8 text-gray-600">
+        <div className="flex lg:flex-row flex-col lg:items-center lg:justify-between lg:w-[700px]  text-gray-600">
           {/*TODO: autofetch time meal post time */}
           <div className="relative mb-8">
             <label className="block mb-2 font-medium">Post Time</label>
@@ -184,10 +204,18 @@ const AddMeal = () => {
           </div>
 
           {/* TODO file upload*/}
+          <div className="relative mb-8 ">
+            <label className="block mb-2 font-medium">Select Image</label>
+            <input
+              {...register("image")}
+              type="file"
+              className="file-input w-[265px] max-w-xs bg-gray-200"
+            />
+          </div>
         </div>
 
-        {/* Summary */}
-        <div className="relative  mb-10">
+        {/* Description */}
+        <div className="relative  mb-10 ">
           <label className="block mb-2 font-medium text-gray-700">
             Description
           </label>

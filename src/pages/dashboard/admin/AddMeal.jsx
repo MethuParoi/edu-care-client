@@ -214,7 +214,7 @@ const AddMeal = () => {
             type="submit"
             className="mt-6 px-4 w-[310px] lg:w-[700px] py-2 bg-cyan-600  text-white rounded hover:bg-cyan-700"
           >
-            Add Movie
+            Add Meal
           </button>
         </div>
       </form>

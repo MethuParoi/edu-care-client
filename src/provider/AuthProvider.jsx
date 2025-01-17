@@ -19,12 +19,6 @@ function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [filteredMovies, setFilteredMovies] = useState([]);
-  //link
-  const [link, setLink] = useState(
-    "https://assignment-11-server-orpin-beta.vercel.app"
-  );
-  // "https://assignment-11-server-orpin-beta.vercel.app"
-  // "http://localhost:3000"
 
   const createUser = (email, password) => {
     setLoading(true);
@@ -44,7 +38,7 @@ function AuthProvider({ children }) {
           const user = { email: currentUser.email };
 
           axios
-            .post(`${link}/jwt-auth`, user, {
+            .post(`${import.meta.env.VITE_API_URL}/auth/jwt-auth`, user, {
               withCredentials: true,
             })
             .then((response) => {})
@@ -70,7 +64,11 @@ function AuthProvider({ children }) {
     setLoading(true);
     try {
       // Send a logout request to the server
-      await axios.post(`${link}/logout`, {}, { withCredentials: true });
+      await axios.post(
+        `${import.meta.env.VITE_API_URL}/auth/logout`,
+        {},
+        { withCredentials: true }
+      );
 
       // Clear all accessible cookies on the client side
       document.cookie.split(";").forEach((cookie) => {
@@ -118,7 +116,6 @@ function AuthProvider({ children }) {
   const authInfo = {
     user,
     loading,
-    link,
     filteredMovies,
     setFilteredMovies,
     createUser,

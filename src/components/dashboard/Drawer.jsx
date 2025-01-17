@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../assets/logo/logo.png";
 import { CgProfile } from "react-icons/cg";
 import { MdFastfood, MdFoodBank, MdOutlineRateReview } from "react-icons/md";
@@ -7,10 +7,23 @@ import { FaHistory, FaUserFriends } from "react-icons/fa";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { PiBowlFood } from "react-icons/pi";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { AuthContext } from "../../provider/AuthProvider";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const Drawer = () => {
   //TODO: fetch is admin from the server
-  const [isAdmin, setIsAdmin] = useState(true);
+  const { user } = useContext(AuthContext);
+  const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    axiosSecure.get(`/user/check-admin/${user.email}`).then((res) => {
+      if (res.admin === true) {
+        setIsAdmin(true);
+      }
+    });
+  }, []);
+  const [isAdmin, setIsAdmin] = useState(false);
   const location = useLocation();
 
   const getLinkClass = (path) => {
@@ -38,7 +51,10 @@ const Drawer = () => {
         <ul className="menu bg-[#3282B8] text-gray-300 font-semibold text-xl min-h-full w-72 p-4">
           {/* Sidebar content here */}
           <>
-            <li className="flex items-center justify-center">
+            <li
+              onClick={() => navigate("/")}
+              className="flex items-center justify-center"
+            >
               <img className="w-32 h-28" src={logo} alt="logo" />
               <p className="text-3xl mt-[-25px] mb-5 text-accentHover">
                 Cloud Hostel
@@ -48,58 +64,56 @@ const Drawer = () => {
           {isAdmin ? (
             // admin menubar
             <>
-              <li className={getLinkClass("/admin/dashboard/admin-profile")}>
+              <li className={getLinkClass("/dashboard/profile")}>
                 <div className="flex items-center justify-start gap-x-4">
                   <CgProfile className="text-red-300 text-3xl" />
-                  <Link to="/admin/dashboard/admin-profile">Admin Profile</Link>
+                  <Link to="/dashboard/profile">Admin Profile</Link>
                 </div>
               </li>
-              <li className={getLinkClass("/admin/dashboard/manage-users")}>
+              <li className={getLinkClass("/dashboard/manage-users")}>
                 <div className="flex items-center justify-start gap-x-4">
                   <FaUserFriends className="text-red-300 text-3xl" />
-                  <Link to="/admin/dashboard/manage-users">Manage Users</Link>
+                  <Link to="/dashboard/manage-users">Manage Users</Link>
                 </div>
               </li>
-              <li className={getLinkClass("/admin/dashboard/add-meal")}>
+              <li className={getLinkClass("/dashboard/add-meal")}>
                 <div className="flex items-center justify-start gap-x-4">
                   <IoIosAddCircleOutline className="text-red-300 text-3xl" />
-                  <Link to="/admin/dashboard/add-meal">Add Meal</Link>
+                  <Link to="/dashboard/add-meal">Add Meal</Link>
                 </div>
               </li>
-              <li className={getLinkClass("/admin/dashboard/all-meals")}>
+              <li className={getLinkClass("/dashboard/all-meals")}>
                 <div className="flex items-center justify-start gap-x-4">
                   <MdFastfood className="text-red-300 text-3xl" />
-                  <Link to="/admin/dashboard/all-meals">All Meals</Link>
+                  <Link to="/dashboard/all-meals">All Meals</Link>
                 </div>
               </li>
-              <li className={getLinkClass("/admin/dashboard/all-reviews")}>
+              <li className={getLinkClass("/dashboard/all-reviews")}>
                 <div className="flex items-center justify-start gap-x-4">
                   <MdOutlineRateReview className="text-red-300 text-3xl" />
-                  <Link to="/admin/dashboard/all-reviews">All Reviews</Link>
+                  <Link to="/dashboard/all-reviews">All Reviews</Link>
                 </div>
               </li>
-              <li className={getLinkClass("/admin/dashboard/serve-meals")}>
+              <li className={getLinkClass("/dashboard/serve-meals")}>
                 <div className="flex items-center justify-start gap-x-4">
                   <MdFoodBank className="text-red-300 text-3xl" />
-                  <Link to="/admin/dashboard/serve-meals">Serve Meals</Link>
+                  <Link to="/dashboard/serve-meals">Serve Meals</Link>
                 </div>
               </li>
-              <li className={getLinkClass("/admin/dashboard/upcoming-meals")}>
+              <li className={getLinkClass("/dashboard/upcoming-meals")}>
                 <div className="flex items-center justify-start gap-x-4">
                   <PiBowlFood className="text-red-300 text-3xl" />
-                  <Link to="/admin/dashboard/upcoming-meals">
-                    Upcoming Meals
-                  </Link>
+                  <Link to="/dashboard/upcoming-meals">Upcoming Meals</Link>
                 </div>
               </li>
             </>
           ) : (
             // user menubar
             <>
-              <li className={getLinkClass("/dashboard/my-profile")}>
+              <li className={getLinkClass("/dashboard/profile")}>
                 <div className="flex items-center justify-start gap-x-4">
                   <CgProfile className="text-red-300 text-3xl" />
-                  <Link to="/dashboard/my-profile">My Profile</Link>
+                  <Link to="/dashboard/profile">My Profile</Link>
                 </div>
               </li>
               <li className={getLinkClass("/dashboard/requested-meals")}>

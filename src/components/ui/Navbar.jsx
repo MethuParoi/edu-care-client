@@ -235,7 +235,10 @@ function Navbar({ toggleTheme, currentTheme }) {
               </li>
               {/* <li>{user.displayName}</li> */}
               <li>
-                <button className="btn bg-accent hover:bg-accentHover w-[100%]">
+                <button
+                  onClick={() => navigate("/dashboard")}
+                  className="btn bg-accent hover:bg-accentHover w-[100%]"
+                >
                   Dashboard
                 </button>
               </li>

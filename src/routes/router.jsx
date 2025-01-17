@@ -50,7 +50,7 @@ const router = createBrowserRouter([
   },
   // user dashboard routes
   {
-    path: "dashboard",
+    path: "/dashboard",
     element: <Dashboard />,
     children: [
       {
@@ -75,7 +75,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "my-profile",
+        path: "profile",
         element: (
           // <PrivateRoute>
           <UserProfile />
@@ -87,7 +87,7 @@ const router = createBrowserRouter([
   // admin dashboard routes
   //TODO: add admin route checker
   {
-    path: "/admin/dashboard",
+    path: "/dashboard",
     element: <Dashboard />,
     children: [
       {
@@ -96,7 +96,7 @@ const router = createBrowserRouter([
       },
 
       {
-        path: "admin-profile",
+        path: "profile",
         element: (
           // <AdminRoute>
           <AdminProfile />

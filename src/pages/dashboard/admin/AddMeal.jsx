@@ -1,12 +1,14 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "../../../provider/AuthProvider";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import Loader from "../../../components/ui/Loader/Loader";
 
 const AddMeal = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const { user } = useContext(AuthContext);
   const food_id = Math.floor(Math.random() * 10000); //random 4 digit id
   const distributorName = user?.displayName;
@@ -41,6 +43,7 @@ const AddMeal = () => {
   }`;
 
   const onSubmit = async (data) => {
+    setIsLoading(true);
     const imageFile = { image: data.image[0] };
     const res = await axiosPublic.post(image_hosting_api, imageFile, {
       headers: {
@@ -51,6 +54,7 @@ const AddMeal = () => {
     // console.log(res.data);
 
     if (!res.data.success) {
+      setIsLoading(false);
       return toast.error("An error occurred. Please try again.");
     }
     const mealData = {
@@ -69,15 +73,23 @@ const AddMeal = () => {
       .then((res) => {
         if (res.status === 200) {
           toast.success("Meal added successfully!");
+          setIsLoading(false);
         }
       })
       .catch((err) => {
         toast.error("An error occurred. Please try again.");
+        setIsLoading(false);
       });
   };
 
   return (
     <div className="sm:p-6 p-2  mx-auto mb-5">
+      {isLoading && (
+        <div className="z-50 fixed top-1/2 left-1/2">
+          <Loader />
+        </div>
+      )}
+
       <h2 className="text-2xl text-red-300 font-semibold text-center  my-8 border-b-2 border-red-300 w-[150px] mx-auto">
         Add Meal
       </h2>

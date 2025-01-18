@@ -3,12 +3,13 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../provider/AuthProvider";
 import axios from "axios";
 import Loader from "../components/ui/Loader/Loader";
-import { AiFillProduct } from "react-icons/ai";
+import { AiFillLike, AiFillProduct, AiOutlineLike } from "react-icons/ai";
 import { CiCalendarDate } from "react-icons/ci";
 import { IoLocation } from "react-icons/io5";
 import Button from "../components/ui/Button";
 import { useMealDetails } from "../utils/fetchMeals";
-import { FaBangladeshiTakaSign } from "react-icons/fa6";
+import { FaBangladeshiTakaSign, FaStarHalfStroke } from "react-icons/fa6";
+import { MdOutlineRateReview } from "react-icons/md";
 // import RequestModal from "../components/food-details/RequestModal";
 
 const MealDetails = () => {
@@ -62,23 +63,76 @@ const MealDetails = () => {
             {mealDetails?.mealType}
           </div>
         </div>
-
-        <div className="flex items-center gap-x-4 my-2">
+        {/* price, distributor, post time */}
+        <div className="flex flex-wrap items-center gap-x-4 my-2 gap-y-2">
           <div className="flex items-center gap-x-2">
             <FaBangladeshiTakaSign className="text-xl" />
             <p className="text-gray-600">{mealDetails?.price}</p>
           </div>
           <div className="flex items-center gap-x-2">
-            <AiFillProduct className="text-xl" />
-            <p className="text-gray-600">{mealDetails?.distributorName}</p>
+            {/* <AiFillProduct className="text-xl" /> */}
+            <p className="text-gray-600">
+              {" "}
+              <span className="font-semibold">Distributor: </span>
+              {mealDetails?.distributorName}
+            </p>
+          </div>
+          <div className="flex items-center gap-x-2">
+            <CiCalendarDate className="text-2xl font-bold" />
+            <p className="text-gray-600">{mealDetails?.postTime}</p>
+          </div>
+        </div>
+        {/* rating, review, request and like button */}
+        <div className="flex items-center gap-x-6 mt-1">
+          <div className="flex items-center gap-x-2">
+            <FaStarHalfStroke className="text-2xl font-bold" />
+            <p className="text-gray-600">{mealDetails?.rating}</p>
           </div>
 
-          {/* <div className="flex items-center gap-x-2">
-            <IoLocation className="text-xl" />
-            <p className="text-gray-600">{mealDetails?.pickup_location}</p>
-          </div> */}
+          <div className="flex items-center gap-x-2">
+            <MdOutlineRateReview className="text-2xl font-bold" />
+            <p className="text-gray-600">{mealDetails?.reviewsCount}</p>
+          </div>
+
+          <div className="flex flex-wrap gap-y-2 items-center gap-x-2">
+            <button className="cursor-pointer px-2 py-1 bg-red-300 hover:bg-red-400 rounded-lg">
+              <AiOutlineLike className="text-2xl font-bold" />
+            </button>
+            <p className="text-gray-600">{mealDetails?.likes}</p>
+          </div>
+          <button className="cursor-pointer px-2 py-1 bg-red-300 hover:bg-red-400 rounded-lg text-gray-600 font-medium">
+            Request Meal
+          </button>
         </div>
+        {/* details */}
         <p className="line-clamp-5 ">{mealDetails?.description}</p>
+        {/* ingredients */}
+        <div className="mb-4">
+          <h1 className="text-xl font-semibold">Ingredients:</h1>
+          <ul className="list-disc list-inside">
+            {Array.isArray(mealDetails?.ingredients)
+              ? mealDetails.ingredients.map((ingredient, index) => (
+                  <li key={index} className="text-gray-600">
+                    {ingredient}
+                  </li>
+                ))
+              : mealDetails?.ingredients.split(",").map((ingredient, index) => (
+                  <li key={index} className="text-gray-600">
+                    {ingredient.trim()}
+                  </li>
+                ))}
+          </ul>
+        </div>
+
+        {/* post review section */}
+        <div className="flex flex-col items-start gap-y-2">
+          <input
+            type="text"
+            placeholder="Write a review"
+            className="input-field border-2 border-gray-400 rounded-lg shadow-lg px-2 h-[80px] w-[300px]"
+          />
+          <Button label={"Post Review"} type={"small"} />
+        </div>
 
         {/* <div className="flex items-center sm:justify-start justify-center mt-4 mb-5 md:mb-0">
           <Button

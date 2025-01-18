@@ -60,11 +60,11 @@ const featuredMeal = () => {
                 rating={meal.rating}
                 description={meal.description}
                 likes={meal.likes}
-                reviews_count={meal.reviews_count}
+                reviews_count={meal.reviewsCount}
                 meal_id={meal._id}
                 refetchDetail={refetchDetail}
                 setMeal_id={setMeal_id}
-                // setMealDetail={setMealDetail}
+                refetch={refetch}
               />
             ))}
           </div>

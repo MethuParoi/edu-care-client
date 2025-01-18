@@ -8,9 +8,9 @@ import useAxiosPublic from "../../../hooks/useAxiosPublic";
 
 const AddMeal = () => {
   const { user } = useContext(AuthContext);
-  const meal_id = Math.floor(Math.random() * 10000); //random 4 digit id
-  const distributor_name = user?.displayName;
-  const distributor_email = user?.email;
+  const food_id = Math.floor(Math.random() * 10000); //random 4 digit id
+  const distributorName = user?.displayName;
+  const distributorEmail = user?.email;
   const axiosSecure = useAxiosSecure();
   const axiosPublic = useAxiosPublic();
 
@@ -23,7 +23,7 @@ const AddMeal = () => {
 
   useEffect(() => {
     reset({
-      post_time: new Date().toLocaleString("en-US", {
+      postTime: new Date().toLocaleString("en-US", {
         year: "numeric",
         month: "2-digit",
         day: "2-digit",
@@ -55,13 +55,13 @@ const AddMeal = () => {
     }
     const mealData = {
       ...data,
-      meal_id,
+      food_id,
       mealImage,
-      distributor_name,
-      distributor_email,
+      distributorName,
+      distributorEmail,
       rating: 0,
       likes: 0,
-      reviews_count: 0,
+      reviewsCount: 0,
     };
 
     axiosSecure
@@ -93,7 +93,7 @@ const AddMeal = () => {
             <input
               type="text"
               placeholder="Enter meal title"
-              {...register("meal_title", {
+              {...register("title", {
                 required: "Title is required",
                 minLength: {
                   value: 2,
@@ -102,9 +102,9 @@ const AddMeal = () => {
               })}
               className="input-field border-2 border-gray-400 rounded-lg shadow-lg h-10 px-2"
             />
-            {errors.meal_title && (
+            {errors.title && (
               <span className="text-red-500 absolute bottom-[-25px] left-0">
-                {errors.meal_title.message}
+                {errors.title.message}
               </span>
             )}
           </div>
@@ -114,7 +114,7 @@ const AddMeal = () => {
             <input
               type="text"
               placeholder="Enter meal category"
-              {...register("meal_category", {
+              {...register("mealType", {
                 required: "Meal Category is required",
                 // pattern: {
                 //   value: /^(https?:\/\/)/,
@@ -123,9 +123,9 @@ const AddMeal = () => {
               })}
               className="input-field border-2 border-gray-400 rounded-lg shadow-lg h-10 px-2"
             />
-            {errors.meal_category && (
+            {errors.mealType && (
               <span className="text-red-500 absolute bottom-[-25px] left-0">
-                {errors.meal_category.message}
+                {errors.mealType.message}
               </span>
             )}
           </div>
@@ -133,35 +133,13 @@ const AddMeal = () => {
 
         {/* Meal ingredient and price */}
         <div className="flex lg:flex-row flex-col lg:items-center lg:justify-between lg:w-[700px] text-gray-700">
-          {/* Genre
-          <div className="relative mt-[-15px] lg:mt-0 mb-8 lg:mb-0">
-            <label className="block mb-2 font-medium">Genre</label>
-            <select
-              {...register("genre", { required: "Please select a genre" })}
-              className="input-field border-2 border-gray-400 rounded-lg shadow-lg h-10 px-2"
-            >
-              <option value="">Select Genre</option>
-              <option value="Comedy">Comedy</option>
-              <option value="Drama">Drama</option>
-              <option value="Horror">Horror</option>
-              <option value="Action">Action</option>
-              <option value="Biography">Biography</option>
-              <option value="History">History</option>
-            </select>
-            {errors.genre && (
-              <span className="text-red-500  absolute bottom-[-25px] lg:w-[300px] left-0">
-                {errors.genre.message}
-              </span>
-            )}
-          </div> */}
-
           {/* meal Ingredients */}
           <div className="relative mb-8">
             <label className="block mb-2 font-medium">Meal Ingredients</label>
             <input
               type="text"
               placeholder="Enter meal ingredients"
-              {...register("meal_ingredients", {
+              {...register("ingredients", {
                 required: "Ingredients is required",
                 minLength: {
                   value: 2,
@@ -170,9 +148,9 @@ const AddMeal = () => {
               })}
               className="input-field border-2 border-gray-400 rounded-lg shadow-lg h-10 px-2"
             />
-            {errors.meal_ingredients && (
+            {errors.ingredients && (
               <span className="text-red-500 absolute bottom-[-25px] left-0">
-                {errors.meal_ingredients.message}
+                {errors.ingredients.message}
               </span>
             )}
           </div>
@@ -183,7 +161,7 @@ const AddMeal = () => {
             <input
               type="number"
               placeholder="Enter meal price "
-              {...register("meal_price", {
+              {...register("price", {
                 required: "Meal Price is required",
                 // min: {
                 //   value: 60,
@@ -192,9 +170,9 @@ const AddMeal = () => {
               })}
               className="input-field border-2 border-gray-400 rounded-lg shadow-lg h-10 px-2"
             />
-            {errors.meal_price && (
+            {errors.price && (
               <span className="text-red-500 absolute bottom-[-25px] left-0">
-                {errors.meal_price.message}
+                {errors.price.message}
               </span>
             )}
           </div>
@@ -209,14 +187,14 @@ const AddMeal = () => {
               disabled
               type="text"
               placeholder="Enter meal post time"
-              {...register("post_time", {
+              {...register("postTime", {
                 required: "post time is required",
               })}
               className="input-field border-2 border-gray-400 rounded-lg shadow-lg h-10 px-2"
             />
-            {errors.meal_ingredients && (
+            {errors.ingredients && (
               <span className="text-red-500 absolute bottom-[-25px] left-0">
-                {errors.meal_ingredients.message}
+                {errors.ingredients.message}
               </span>
             )}
           </div>
@@ -225,10 +203,17 @@ const AddMeal = () => {
           <div className="relative mb-8 ">
             <label className="block mb-2 font-medium">Select Image</label>
             <input
-              {...register("image")}
+              {...register("image", {
+                required: "Image is required",
+              })}
               type="file"
               className="file-input w-[265px] max-w-xs bg-gray-200"
             />
+            {errors.image && (
+              <span className="text-red-500 absolute bottom-[-25px] left-0">
+                {errors.image.message}
+              </span>
+            )}
           </div>
         </div>
 
@@ -246,7 +231,7 @@ const AddMeal = () => {
                 message: "Description must be at least 10 characters",
               },
             })}
-            className="input-field border-2 border-gray-400 rounded-lg shadow-lg h-20 lg:h-28 lg:w-[700px] px-2"
+            className="input-field border-2 border-gray-400 rounded-lg shadow-lg h-20 lg:h-28 lg:w-[700px] px-2 text-gray-700"
           />
           {errors.description && (
             <span className="text-red-500 absolute bottom-[-25px] left-0">

@@ -32,6 +32,7 @@ export function useMealDetails(id) {
     isLoading,
     data: mealDetails,
     error,
+    refetch,
   } = useQuery({
     queryKey: ["mealDetails", id],
     queryFn: async () => {
@@ -43,5 +44,5 @@ export function useMealDetails(id) {
     },
   });
 
-  return { isLoading, mealDetails, error };
+  return { isLoading, mealDetails, error, refetch };
 }

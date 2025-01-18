@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -18,7 +18,22 @@ const AddMeal = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
+
+  useEffect(() => {
+    reset({
+      post_time: new Date().toLocaleString("en-US", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true,
+      }),
+    });
+  }, []);
 
   //upload image to imagebb
   const image_hosting_api = `https://api.imgbb.com/1/upload?key=${
@@ -35,24 +50,30 @@ const AddMeal = () => {
     const mealImage = res.data.data.display_url;
     // console.log(res.data);
 
+    if (!res.data.success) {
+      return toast.error("An error occurred. Please try again.");
+    }
     const mealData = {
       ...data,
       meal_id,
       mealImage,
       distributor_name,
       distributor_email,
+      rating: 0,
+      likes: 0,
+      reviews_count: 0,
     };
 
-    // axiosSecure
-    //   .post("/add-meal", mealData)
-    //   .then((res) => {
-    //     if (res.status === 200) {
-    //       toast.success("Meal added successfully!");
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     toast.error("An error occurred. Please try again.");
-    //   });
+    axiosSecure
+      .post("/meal/add-meal", mealData)
+      .then((res) => {
+        if (res.status === 200) {
+          toast.success("Meal added successfully!");
+        }
+      })
+      .catch((err) => {
+        toast.error("An error occurred. Please try again.");
+      });
   };
 
   return (
@@ -185,14 +206,11 @@ const AddMeal = () => {
           <div className="relative mb-8">
             <label className="block mb-2 font-medium">Post Time</label>
             <input
+              disabled
               type="text"
-              placeholder="Enter meal ingredients"
-              {...register("meal_ingredients", {
-                required: "Ingredients is required",
-                minLength: {
-                  value: 2,
-                  message: "Title must be at least 2 characters",
-                },
+              placeholder="Enter meal post time"
+              {...register("post_time", {
+                required: "post time is required",
               })}
               className="input-field border-2 border-gray-400 rounded-lg shadow-lg h-10 px-2"
             />

@@ -10,15 +10,60 @@ import Button from "../components/ui/Button";
 import { useMealDetails } from "../utils/fetchMeals";
 import { FaBangladeshiTakaSign, FaStarHalfStroke } from "react-icons/fa6";
 import { MdOutlineRateReview } from "react-icons/md";
+import useAxiosSecure from "../hooks/useAxiosSecure";
+import { toast } from "react-toastify";
+import { useFetchSingleUser } from "../utils/fetchUsers";
 // import RequestModal from "../components/food-details/RequestModal";
 
 const MealDetails = () => {
-  const { user, link } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
+  const axiosSecure = useAxiosSecure();
 
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const { isLoading, mealDetails, error } = useMealDetails(id);
+  const { isLoading, mealDetails, error, refetch } = useMealDetails(id);
+  const { singleUser, refetch: refetchLikedMeal } = useFetchSingleUser(
+    user?.email
+  );
+
+  //disble like button if user already liked the meal
+  const [isLiked, setIsLiked] = useState(false);
+  useEffect(() => {
+    if (singleUser?.likedMeals.includes(id)) {
+      setIsLiked(true);
+    }
+  }, [singleUser, id]);
+
+  // useEffect(() => {
+  //   if (user.email) {
+  //     useFetchSingleUser(user.email);
+  //   }
+  // }, [user.email]);
+
+  //handle like button
+  const handleLike = async () => {
+    try {
+      const [res, resLikedMeal] = await Promise.all([
+        axiosSecure.patch(`meal/increase-like/${id}`),
+        axiosSecure.post(`/user/insert-liked-meals/${user?.email}`, {
+          likedMeals: [id],
+        }),
+      ]).then((res) => {
+        if (
+          res[0].data.modifiedCount === 1 &&
+          res[1].data.modifiedCount === 1
+        ) {
+          toast.success("Meal liked successfully!");
+          refetch();
+          refetchLikedMeal();
+        }
+      });
+      // Handle the responses if needed
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   //   useEffect(() => {
   //     axios
@@ -88,18 +133,23 @@ const MealDetails = () => {
             <FaStarHalfStroke className="text-2xl font-bold" />
             <p className="text-gray-600">{mealDetails?.rating}</p>
           </div>
-
+          {/* review count */}
           <div className="flex items-center gap-x-2">
             <MdOutlineRateReview className="text-2xl font-bold" />
             <p className="text-gray-600">{mealDetails?.reviewsCount}</p>
           </div>
-
+          {/* like button */}
           <div className="flex flex-wrap gap-y-2 items-center gap-x-2">
-            <button className="cursor-pointer px-2 py-1 bg-red-300 hover:bg-red-400 rounded-lg">
+            <button
+              disabled={isLiked}
+              onClick={() => handleLike()}
+              className="cursor-pointer px-2 py-1 bg-red-300 hover:bg-red-400 rounded-lg"
+            >
               <AiOutlineLike className="text-2xl font-bold" />
             </button>
             <p className="text-gray-600">{mealDetails?.likes}</p>
           </div>
+          {/* request meal */}
           <button className="cursor-pointer px-2 py-1 bg-red-300 hover:bg-red-400 rounded-lg text-gray-600 font-medium">
             Request Meal
           </button>

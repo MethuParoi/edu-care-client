@@ -31,7 +31,8 @@ const MealDetails = () => {
   //disble like button if user already liked the meal
   const [isLiked, setIsLiked] = useState(false);
   useEffect(() => {
-    if (singleUser?.likedMeals.includes(id)) {
+    if (singleUser?.likedMeals === 0) return;
+    if (singleUser?.likedMeals?.includes(id)) {
       setIsLiked(true);
     }
   }, [singleUser, id]);

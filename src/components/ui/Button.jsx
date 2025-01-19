@@ -25,7 +25,7 @@ function Button({ label, onClick, type }) {
     return (
       <button
         onClick={onClick}
-        className="text-white text-md font-semibold bg-secondary hover:bg-accent dark:bg-gray-500 dark:hover:bg-gray-600 px-2 py-2 rounded-3xl"
+        className="text-white text-md font-semibold bg-secondary hover:bg-sky-700 dark:bg-gray-500 dark:hover:bg-gray-600 px-2 py-2 rounded-3xl"
       >
         {label}
       </button>

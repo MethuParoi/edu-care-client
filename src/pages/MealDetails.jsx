@@ -16,6 +16,7 @@ import { useFetchSingleUser } from "../utils/fetchUsers";
 // import RequestModal from "../components/food-details/RequestModal";
 
 const MealDetails = () => {
+  const [review, setReview] = useState("");
   const { user } = useContext(AuthContext);
   const axiosSecure = useAxiosSecure();
 
@@ -34,12 +35,6 @@ const MealDetails = () => {
       setIsLiked(true);
     }
   }, [singleUser, id]);
-
-  // useEffect(() => {
-  //   if (user.email) {
-  //     useFetchSingleUser(user.email);
-  //   }
-  // }, [user.email]);
 
   //handle like button
   const handleLike = async () => {
@@ -65,19 +60,42 @@ const MealDetails = () => {
     }
   };
 
-  //   useEffect(() => {
-  //     axios
-  //       .get(`${link}/get-meal-details/${id}`, {
-  //         withCredentials: true,
-  //       })
-  //       .then((res) => {
-  //         setDetails(res.data);
-  //         setIsLoading(false);
-  //       });
-  //   }, [id]);
-
-  //   const [details, setDetails] = useState(null);
-  //   const [isLoading, setIsLoading] = useState(true);
+  //handle review post
+  const handleReview = async () => {
+    try {
+      const [res, resLikedMeal, resReviewedMeal] = await Promise.all([
+        axiosSecure.patch(`meal/increase-review/${id}`),
+        axiosSecure.post(`/user/insert-reviewed-meals/${user?.email}`, {
+          reviewedMeal: [{ id: id, review: review }],
+        }),
+        axiosSecure.post(`/review/add-review/678ca678c4c2ef19970bc09f`, {
+          review: [
+            {
+              user_id: user?.email,
+              meal_id: id,
+              review: review,
+            },
+          ],
+        }),
+      ]).then((res) => {
+        if (
+          res[0].data.modifiedCount === 1 &&
+          res[1].data.modifiedCount === 1 &&
+          res[2].data.acknowledged === true
+        ) {
+          toast.success("Review posted successfully!");
+          refetch();
+          setReview("");
+        }
+      });
+      // const response = await axiosSecure.post(`/meal/post-review/${id}`, {
+      //   review,
+      //   email: user?.email,
+      // });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   if (isLoading) {
     return (
@@ -178,10 +196,15 @@ const MealDetails = () => {
         <div className="flex flex-col items-start gap-y-2">
           <input
             type="text"
+            onChange={(e) => setReview(e.target.value)}
             placeholder="Write a review"
             className="input-field border-2 border-gray-400 rounded-lg shadow-lg px-2 h-[80px] w-[300px]"
           />
-          <Button label={"Post Review"} type={"small"} />
+          <Button
+            onClick={() => handleReview()}
+            label={"Post Review"}
+            type={"small"}
+          />
         </div>
 
         {/* <div className="flex items-center sm:justify-start justify-center mt-4 mb-5 md:mb-0">

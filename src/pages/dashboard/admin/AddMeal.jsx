@@ -90,7 +90,7 @@ const AddMeal = () => {
         </div>
       )}
 
-      <h2 className="text-2xl text-red-300 font-semibold text-center  my-8 border-b-2 border-red-300 w-[150px] mx-auto">
+      <h2 className="text-2xl text-red-300 font-semibold text-center mb-8 border-b-2 border-red-300 w-[150px] mx-auto">
         Add Meal
       </h2>
       <form

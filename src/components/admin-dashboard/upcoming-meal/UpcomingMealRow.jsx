@@ -1,26 +1,58 @@
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 const UpcomingMealRow = ({
   title,
   price,
   mealType,
   mealImage,
+  ingredients,
   distributorName,
+  distributorEmail,
+  postTime,
   rating,
   description,
   likes,
   reviews_count,
   meal_id,
   refetch,
+  setIsPublishing,
   //   refetchDetail,
   //   setMeal_id,
 }) => {
+  const [isPublished, setIsPublished] = useState(false);
   const axiosSecure = useAxiosSecure();
-  const navigate = useNavigate();
+  const mealData = {
+    title,
+    price,
+    mealType,
+    ingredients,
+    description,
+    postTime,
+    food_id: meal_id,
+    mealImage,
+    distributorName,
+    distributorEmail,
+    rating,
+    likes,
+    reviewsCount: reviews_count,
+  };
 
   const handlePublish = () => {
-    document.getElementById("upcoming_meal_modal").showModal();
+    setIsPublishing(true);
+    axiosSecure
+      .post("/meal/add-meal", mealData)
+      .then((res) => {
+        if (res.status === 200) {
+          toast.success("Meal published successfully!");
+          setIsPublishing(false);
+          setIsPublished(true);
+        }
+      })
+      .catch((err) => {
+        toast.error("An error occurred. Please try again.");
+        setIsPublishing(false);
+      });
   };
 
   return (
@@ -44,10 +76,11 @@ const UpcomingMealRow = ({
       <div className="flex space-x-2 items-center">
         {/* edit */}
         <button
+          disabled={isPublished}
           onClick={() => handlePublish()}
           className="hover:bg-teal-500 bg-teal-400 text-gray-100 px-4 py-2 text-lg font-semibold rounded-lg"
         >
-          Publish
+          {isPublished ? "Published" : "Publish"}
         </button>
         {/* delete */}
         {/* <button

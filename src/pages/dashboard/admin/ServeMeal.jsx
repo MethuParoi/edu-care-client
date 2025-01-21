@@ -5,7 +5,7 @@ import { useFetchAllUser } from "../../../utils/fetchUsers";
 const ServeMeal = () => {
   const { isLoading, allUser, error, refetch } = useFetchAllUser();
   return (
-    <div className="mt-20 flex flex-col items-start">
+    <div className="mt-10 flex flex-col items-start">
       <h1 className="text-2xl text-red-300 font-semibold mx-auto mb-6 border-b-2 border-red-300">
         Serve Meals
       </h1>

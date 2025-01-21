@@ -185,11 +185,13 @@ const MealDetails = () => {
                     {ingredient}
                   </li>
                 ))
-              : mealDetails?.ingredients.split(",").map((ingredient, index) => (
-                  <li key={index} className="text-gray-600">
-                    {ingredient.trim()}
-                  </li>
-                ))}
+              : mealDetails?.ingredients
+                  ?.split(",")
+                  .map((ingredient, index) => (
+                    <li key={index} className="text-gray-600">
+                      {ingredient.trim()}
+                    </li>
+                  ))}
           </ul>
         </div>
 

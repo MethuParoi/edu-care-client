@@ -1,18 +1,37 @@
 import AddUpcomingMeal from "../../../components/admin-dashboard/upcoming-meal/AddUpcomingMeal";
 import { useUpcomingMeal } from "../../../utils/fetchMeals";
 import UpcomingMealRow from "../../../components/admin-dashboard/upcoming-meal/UpcomingMealRow";
+import Button from "../../../components/ui/Button";
+import { useState } from "react";
+import Loader from "../../../components/ui/Loader/Loader";
 
 const UpcomingMeal = () => {
+  const [isPublishing, setIsPublishing] = useState(false);
   const { isLoading, upcomingMeal, error, refetch } = useUpcomingMeal();
   return (
-    <div className="mt-20 flex flex-col items-start">
+    <div className="mt-10 flex flex-col items-start">
       <h1 className="text-2xl text-red-300 font-semibold mx-auto mb-6 border-b-2 border-red-300">
         Upcoming Meals
       </h1>
+      {/* add meal */}
+      <div className="flex justify-end w-[90%] xl:max-w-[1150px] mx-auto mb-4">
+        <Button
+          label="Add Upcoming Meal"
+          onClick={() =>
+            document.getElementById("upcoming_meal_modal").showModal()
+          }
+          type="small"
+        />
+      </div>
       {!isLoading && upcomingMeal?.length === 0 && (
         <h2 className="text-3xl font-semibold text-center text-gray-600 mt-16 mb-32">
-          No User found!
+          No Upcoming Meal found!
         </h2>
+      )}
+      {isPublishing && (
+        <div className="absolute top-1/2 left-1/2">
+          <Loader />
+        </div>
       )}
       {/* table */}
       {upcomingMeal?.length > 0 && (
@@ -43,14 +62,18 @@ const UpcomingMeal = () => {
                 title={meal.title}
                 price={meal.price}
                 mealType={meal.mealType}
+                ingredients={meal.ingredients}
                 mealImage={meal.mealImage}
                 distributorName={meal.distributorName}
+                distributorEmail={meal.distributorEmail}
+                postTime={meal.postTime}
                 rating={meal.rating}
                 description={meal.description}
                 likes={meal.likes}
                 reviews_count={meal.reviewsCount}
                 meal_id={meal._id}
                 refetch={refetch}
+                setIsPublishing={setIsPublishing}
                 // refetchDetail={refetchDetail}
                 // setMeal_id={setMeal_id}
               />

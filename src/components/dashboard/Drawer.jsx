@@ -32,7 +32,7 @@ const Drawer = () => {
   };
 
   return (
-    <div className="drawer md:drawer-open  absolute top-0 left-0 md:relative md:w-[300px]">
+    <div className="drawer md:drawer-open  absolute top-0 left-0 md:relative md:w-[300px] z-40">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content flex flex-col items-center justify-center">
         {/* Page content here */}

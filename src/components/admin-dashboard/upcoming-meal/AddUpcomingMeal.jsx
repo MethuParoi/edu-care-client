@@ -4,31 +4,38 @@ import { useForm } from "react-hook-form";
 import Loader from "../../ui/Loader/Loader";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import { AuthContext } from "../../../provider/AuthProvider";
 
-const EditModal = ({ meal_id, setMeal_id, mealDetail, refetch }) => {
+const AddUpcomingMeal = ({ refetch }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const { user } = useContext(AuthContext);
+  const food_id = Math.floor(Math.random() * 10000); //random 4 digit id
+  const distributorName = user?.displayName;
+  const distributorEmail = user?.email;
   const axiosSecure = useAxiosSecure();
   const axiosPublic = useAxiosPublic();
+
+  //post time
+  useEffect(() => {
+    reset({
+      postTime: new Date().toLocaleString("en-US", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true,
+      }),
+    });
+  }, []);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
   } = useForm();
-
-  useEffect(() => {
-    if (mealDetail) {
-      console.log("meal detail", mealDetail);
-      reset({
-        mealType: mealDetail.mealType,
-        title: mealDetail.title,
-        price: mealDetail.price,
-        distributorName: mealDetail.distributorName,
-        description: mealDetail.description,
-        ingredients: mealDetail.ingredients,
-      });
-    }
-  }, [mealDetail, reset]);
 
   //upload image to imagebb
   const image_hosting_api = `https://api.imgbb.com/1/upload?key=${
@@ -37,52 +44,47 @@ const EditModal = ({ meal_id, setMeal_id, mealDetail, refetch }) => {
 
   const onSubmit = async (data) => {
     setIsLoading(true);
-    let mealImage = mealDetail.mealImage; // Default to existing image
-
-    if (data.image && data.image.length > 0) {
-      const imageFile = { image: data.image[0] };
-      const res = await axiosPublic.post(image_hosting_api, imageFile, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-
-      if (!res.data.success) {
-        setIsLoading(false);
-        return toast.error("An error occurred. Please try again.");
-      }
-
-      mealImage = res.data.data.display_url;
-    }
+    const imageFile = { image: data.image[0] };
+    const res = await axiosPublic.post(image_hosting_api, imageFile, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    const mealImage = res.data.data.display_url;
 
     const mealData = {
       ...data,
       mealImage,
+      food_id,
+      distributorName,
+      distributorEmail,
+      rating: 0,
+      likes: 0,
+      reviewsCount: 0,
     };
 
     try {
-      const response = await axiosSecure.patch(
-        `meal/update-meal/${meal_id}`,
+      const response = await axiosSecure.post(
+        `meal/add-upcoming-meal`,
         mealData
       );
       if (response.status === 200) {
-        toast.success("Meal updated successfully!");
+        toast.success("Meal added successfully!");
         refetch();
-        setMeal_id(null);
-        document.getElementById("my_modal_4").close();
+        document.getElementById("upcoming_meal_modal").close();
       }
     } catch (error) {
-      toast.error("An error occurred while updating meal. Please try again.");
+      toast.error("An error occurred while adding meal. Please try again.");
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <dialog id="my_modal_4" className="modal">
+    <dialog id="upcoming_meal_modal" className="modal">
       <div className="modal-box relative bg-gray-100">
         <button
-          onClick={() => document.getElementById("my_modal_4").close()}
+          onClick={() => document.getElementById("upcoming_meal_modal").close()}
           className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
         >
           ✕
@@ -93,7 +95,7 @@ const EditModal = ({ meal_id, setMeal_id, mealDetail, refetch }) => {
           </div>
         )}
         <h3 className="font-bold text-lg lg:text-xl text-center mt-6 mb-5 border-b-2 border-gray-400 w-[250px] mx-auto text-red-300">
-          Update Meal Details
+          Add Upcoming Meal
         </h3>
         <div className="flex justify-center items-center">
           <form
@@ -223,7 +225,7 @@ const EditModal = ({ meal_id, setMeal_id, mealDetail, refetch }) => {
                 type="submit"
                 className="mt-6 px-4 w-[310px] py-2 bg-cyan-600 text-white rounded hover:bg-cyan-700"
               >
-                Update Meal
+                Add Upcoming Meal
               </button>
             </div>
           </form>
@@ -233,4 +235,4 @@ const EditModal = ({ meal_id, setMeal_id, mealDetail, refetch }) => {
   );
 };
 
-export default EditModal;
+export default AddUpcomingMeal;

@@ -46,3 +46,25 @@ export function useMealDetails(id) {
 
   return { isLoading, mealDetails, error, refetch };
 }
+
+//---------------------------------------
+export function useUpcomingMeal() {
+  const axiosPublic = useAxiosPublic();
+  const {
+    isLoading,
+    data: upcomingMeal,
+    error,
+    refetch,
+  } = useQuery({
+    queryKey: ["upcomingMeal"],
+    queryFn: async () => {
+      const response = await axiosPublic.get("/meal/get-upcoming-meals");
+      if (response.status !== 200) {
+        throw new Error("Network response was not ok");
+      }
+      return response.data;
+    },
+  });
+
+  return { isLoading, upcomingMeal, error, refetch };
+}

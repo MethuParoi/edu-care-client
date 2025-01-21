@@ -38,7 +38,7 @@ function MealCard({ meal }) {
           <div className="flex items-center gap-x-2">
             <FaBangladeshiTakaSign className="text-xl" />
 
-            <p className="text-gray-600 dark:text-white">{meal.price} unit</p>
+            <p className="text-gray-600 dark:text-white">{meal.price}</p>
           </div>
 
           <div className="flex items-center gap-x-2">

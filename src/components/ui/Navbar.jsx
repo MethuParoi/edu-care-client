@@ -93,10 +93,10 @@ function Navbar({ toggleTheme, currentTheme }) {
             </li>
             <li>
               <button
-                onClick={() => navigate("/meals")}
+                onClick={() => navigate("/all-meals")}
                 className="text-neutral"
               >
-                Meals
+                All Meals
               </button>
             </li>
             <li>
@@ -148,12 +148,12 @@ function Navbar({ toggleTheme, currentTheme }) {
 
           <li>
             <button
-              onClick={() => navigate("/meals")}
+              onClick={() => navigate("/all-meals")}
               className={`text-neutral ${
-                location.pathname === "/meals" && "active"
+                location.pathname === "/all-meals" && "active"
               }`}
             >
-              Meals
+              All Meals
             </button>
           </li>
           <li>

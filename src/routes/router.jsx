@@ -19,6 +19,7 @@ import AllReview from "../pages/dashboard/admin/AllReview";
 import ManageUser from "../pages/dashboard/admin/ManageUser";
 import ServeMeal from "../pages/dashboard/admin/ServeMeal";
 import UpcomingMeal from "../pages/dashboard/admin/UpcomingMeal";
+import Meals from "../pages/Meals";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "all-meals",
+        element: <Meals />,
       },
 
       {

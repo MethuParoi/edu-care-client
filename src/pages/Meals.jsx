@@ -159,7 +159,7 @@ const Meals = () => {
               <button
                 onClick={() => {
                   setFilteredMeal([]);
-                  handleSortByPrice(200, 10000);
+                  handleSortByPrice(201, 10000);
                 }}
               >
                 Greater than 200

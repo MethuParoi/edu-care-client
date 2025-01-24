@@ -59,6 +59,7 @@ const AddMeal = () => {
     }
     const mealData = {
       ...data,
+      price: Number(data.price),
       food_id,
       mealImage,
       distributorName,

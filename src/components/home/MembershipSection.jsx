@@ -24,7 +24,9 @@ const MembershipSection = () => {
   ];
 
   const handleRedirect = (packageName) => {
-    navigate(`/checkout/${packageName.toLowerCase()}`);
+    navigate(`/checkout`);
+
+    // navigate(`/checkout/${packageName.toLowerCase()}`);
   };
 
   return (

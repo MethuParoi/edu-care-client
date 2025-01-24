@@ -20,6 +20,7 @@ import ManageUser from "../pages/dashboard/admin/ManageUser";
 import ServeMeal from "../pages/dashboard/admin/ServeMeal";
 import UpcomingMeal from "../pages/dashboard/admin/UpcomingMeal";
 import Meals from "../pages/Meals";
+import Checkout from "../pages/Checkout";
 
 const router = createBrowserRouter([
   {
@@ -41,6 +42,14 @@ const router = createBrowserRouter([
           // <PrivateRoute>
           <MealDetails />
           // </PrivateRoute>
+        ),
+      },
+      {
+        path: "/checkout",
+        element: (
+          <PrivateRoute>
+            <Checkout />
+          </PrivateRoute>
         ),
       },
       {

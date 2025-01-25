@@ -103,11 +103,12 @@ const MealDetails = () => {
     try {
       const [res1, res2] = await Promise.all([
         axiosSecure.post(`/user/insert-requested-meals/${user?.email}`, {
-          requestedMeal: [{ id: id }],
+          requestedMeal: [{ id: id, status: "pending" }],
         }),
         axiosSecure.post(`/requested-meal/add-requested-meal`, {
           id: id,
           user: user?.email,
+          status: "pending",
         }),
       ]).then((res) => {
         if (

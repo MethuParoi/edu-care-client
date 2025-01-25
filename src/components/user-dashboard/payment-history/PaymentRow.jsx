@@ -5,7 +5,7 @@ const PaymentRow = ({ status, transactionId, amount, date }) => {
         {transactionId}
       </p>
       <p className="text-lg xl:text-xl font-medium text-gray-300 line-clamp-1">
-        {amount}
+        {amount / 100}
       </p>
       <p className="text-lg xl:text-xl font-medium text-gray-300 line-clamp-1">
         {date}

@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../hooks/useAxiosPublic";
 import useAxiosSecure from "../hooks/useAxiosSecure";
+import { useContext } from "react";
+import { AuthContext } from "../provider/AuthProvider";
 
 export function useFeaturedMeal(mealType) {
   const axiosPublic = useAxiosPublic();
@@ -67,4 +69,29 @@ export function useUpcomingMeal() {
   });
 
   return { isLoading, upcomingMeal, error, refetch };
+}
+
+//--------------------------------------Requested Meal
+export function useRequestedMeal() {
+  const axiosSecure = useAxiosSecure();
+  const { user } = useContext(AuthContext);
+  const {
+    isLoading,
+    data: requestedMeal,
+    error,
+    refetch,
+  } = useQuery({
+    queryKey: ["requestedMeal"],
+    queryFn: async () => {
+      const response = await axiosSecure.get(
+        `/user/get-requested-meals/${user.email}`
+      );
+      if (response.status !== 200) {
+        throw new Error("Network response was not ok");
+      }
+      return response.data;
+    },
+  });
+
+  return { isLoading, requestedMeal, error, refetch };
 }

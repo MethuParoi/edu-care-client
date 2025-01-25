@@ -1,12 +1,16 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 // import "./Profile.css";
 import ProfileImageSection from "../../../components/user-dashboard/user-profile/ProfileImageSection";
 import ProfileDesc from "../../../components/user-dashboard/user-profile/ProfileDesc";
 import { CgProfile } from "react-icons/cg";
 import { AuthContext } from "../../../provider/AuthProvider";
+import { useFetchSingleUser } from "../../../utils/fetchUsers";
 
 const UserProfile = () => {
   const { user } = useContext(AuthContext);
+  const { isLoading, singleUser, error, refetch } = useFetchSingleUser(
+    user?.email
+  );
 
   return (
     <div className=" w-full  text-red-300  ">
@@ -29,7 +33,11 @@ const UserProfile = () => {
         </div>
 
         <div className="md:col-span-2 self-center ml-[-15rem]">
-          <ProfileDesc name={user?.displayName} mail={user?.email} />
+          <ProfileDesc
+            badge={singleUser?.plan}
+            name={user?.displayName}
+            mail={user?.email}
+          />
         </div>
       </div>
     </div>

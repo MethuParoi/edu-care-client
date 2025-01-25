@@ -16,7 +16,6 @@ const Checkout = () => {
   //   const [cart] = useCart();
   //   const packagePrice = cart.reduce((acc, item) => acc + item.price, 0);
   const { packagePrice } = useContext(AuthContext);
-  console.log(packagePrice);
 
   useEffect(() => {
     if (packagePrice > 0) {

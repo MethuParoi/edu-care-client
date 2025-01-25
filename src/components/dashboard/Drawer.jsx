@@ -23,7 +23,7 @@ const Drawer = () => {
         setIsAdmin(true);
       }
     });
-  }, []);
+  }, [axiosSecure, user?.email]);
   const [isAdmin, setIsAdmin] = useState(false);
   const location = useLocation();
 

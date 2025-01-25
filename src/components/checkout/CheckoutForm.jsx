@@ -82,7 +82,8 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { toast } from "react-toastify";
 
 const CheckoutForm = ({ id, email }) => {
-  const { user } = useContext(AuthContext);
+  const { user, packagePrice } = useContext(AuthContext);
+  const [plan, setPlan] = useState(null);
   const navigate = useNavigate();
   const stripe = useStripe();
   const elements = useElements();
@@ -91,6 +92,15 @@ const CheckoutForm = ({ id, email }) => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [transactionId, setTransactionId] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  //set package
+  if (packagePrice === 49) {
+    setPlan("Silver");
+  } else if (packagePrice === 99) {
+    setPlan("Gold");
+  } else if (packagePrice === 149) {
+    setPlan("Platinum");
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -132,12 +142,13 @@ const CheckoutForm = ({ id, email }) => {
 
         const res = await axiosSecure.post("/payments", contactRequest);
         // console.log(res.data);
+        //store payment details in database
 
+        //after successful payment, redirect to payment history page
+        toast.success("Payment Successful");
+        navigate("/dashboard/payment-history");
         if (res.data.result.insertedId) {
           console.log("Payment completed successfully");
-
-          toast.success("Payment Successful");
-          navigate("/dashboard/payment-history");
         } else {
           setErrorMessage("Payment not completed. Please try again.");
         }

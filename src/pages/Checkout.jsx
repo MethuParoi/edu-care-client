@@ -50,28 +50,3 @@ const Checkout = () => {
 
 export default Checkout;
 
-// import { Elements } from "@stripe/react-stripe-js";
-// import { loadStripe } from "@stripe/stripe-js";
-// import { Helmet } from "react-helmet-async";
-// import CheckoutForm from "../components/checkout/CheckoutForm";
-
-// // stripe public key
-// const stripePromise = loadStripe(import.meta.env.VITE_PAYMENT_GATEWAY_PK);
-// const Checkout = () => {
-//   return (
-//     <div>
-//       <Helmet>
-//         <title>Checkout</title>
-//       </Helmet>
-
-//       {/* payment section */}
-//       <div>
-//         <Elements stripe={stripePromise}>
-//           <CheckoutForm />
-//         </Elements>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Checkout;

@@ -53,16 +53,6 @@ const AllReview = () => {
               )
             )}
           </div>
-
-          {/* <div className="">
-            {allReview?.map((review) => (
-              <AllReviewRow
-                key={review._id}
-                // review={review.reviews.review[0].review}
-                review={review}
-              />
-            ))}
-          </div> */}
         </div>
       )}
     </div>

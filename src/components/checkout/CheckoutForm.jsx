@@ -85,9 +85,11 @@ const CheckoutForm = ({ id, email }) => {
           }),
           axiosSecure.patch(`/user/update-plan/${user.email}`, { plan }),
         ]);
+        console.log("res1:", res.data);
+        console.log("res2:", res2.data);
 
         //after successful payment, redirect to payment history page
-        if (res.data.result.insertedId && res2.data.result.modifiedCount > 0) {
+        if (res.data.modifiedCount > 0 && res2.data.modifiedCount > 0) {
           toast.success("Payment Successful");
           navigate("/dashboard/payment-history");
           console.log("Payment completed successfully");
@@ -99,6 +101,9 @@ const CheckoutForm = ({ id, email }) => {
       }
     } catch (error) {
       setErrorMessage("An error occurred while processing your payment.");
+      setTimeout(() => {
+        toast.error("An error occurred while processing your payment.");
+      }, 5000);
     } finally {
       setLoading(false);
     }
@@ -114,86 +119,15 @@ const CheckoutForm = ({ id, email }) => {
       >
         {loading ? "Processing..." : "Pay Now"}
       </button>
-      {errorMessage && <div className="text-red-500 mt-2">{errorMessage}</div>}
-      {transactionId && (
+
+      {/* {transactionId && (
         <div className="text-green-500 mt-2">
           Transaction ID: {transactionId}
         </div>
-      )}
+      )} */}
     </form>
   );
 };
 
 export default CheckoutForm;
 
-// import {
-//   CardElement,
-//   PaymentElement,
-//   useElements,
-//   useStripe,
-// } from "@stripe/react-stripe-js";
-// import { toast } from "react-toastify";
-
-// const CheckoutForm = () => {
-//   const stripe = useStripe();
-//   const elements = useElements();
-
-//   // Handle form submission.
-//   const handleSubmit = async (event) => {
-//     event.preventDefault();
-
-//     if (!stripe || !elements) {
-//       // Stripe.js has not loaded yet. Make sure to disable
-//       // form submission until Stripe.js has loaded.
-//       return;
-//     }
-
-//     // Get a reference to a mounted CardElement. Elements knows how
-//     // to find your CardElement because there can only ever be one of
-//     // each type of element.
-//     const card = elements.getElement(CardElement);
-
-//     if (card == null) {
-//       return;
-//     }
-
-//     // Use your card Element with other Stripe.js APIs
-//     const { error, paymentMethod } = await stripe.createPaymentMethod({
-//       type: "card",
-//       card,
-//     });
-
-//     if (error) {
-//       toast.error(error.message);
-//       console.log("[error]", error);
-//     } else {
-//       console.log("[PaymentMethod]", paymentMethod);
-//     }
-//   };
-
-//   return (
-//     <form onSubmit={handleSubmit}>
-//       <CardElement
-//         options={{
-//           style: {
-//             base: {
-//               fontSize: "16px",
-//               color: "#424770",
-//               "::placeholder": {
-//                 color: "#aab7c4",
-//               },
-//             },
-//             invalid: {
-//               color: "#9e2146",
-//             },
-//           },
-//         }}
-//       />
-//       <button className="bg-red-500" type="submit" disabled={!stripe}>
-//         Pay
-//       </button>
-//     </form>
-//   );
-// };
-
-// export default CheckoutForm;

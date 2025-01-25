@@ -20,7 +20,9 @@ const UserProfile = () => {
             <CgProfile size={"2.5rem"} />
           </div>
           <div>
-            <p className="text-[1.2rem] sm:text-[1.8rem] font-semibold pl-3">{`Welcome, ${user?.displayName}`}</p>
+            <p className="text-[1.2rem] sm:text-[1.8rem] font-semibold pl-3">{`Welcome, ${
+              singleUser?.role === "admin" ? "Admin" : user?.displayName
+            }`}</p>
           </div>
         </div>
       </div>
@@ -37,6 +39,7 @@ const UserProfile = () => {
             badge={singleUser?.plan}
             name={user?.displayName}
             mail={user?.email}
+            role={singleUser?.role}
           />
         </div>
       </div>

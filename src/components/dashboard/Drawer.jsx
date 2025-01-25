@@ -32,13 +32,13 @@ const Drawer = () => {
   };
 
   return (
-    <div className="drawer md:drawer-open  absolute top-0 left-0 md:relative md:w-[300px] z-40">
+    <div className="drawer lg:drawer-open  absolute top-0 left-0 lg:relative md:w-[300px] z-40">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content flex flex-col items-center justify-center">
         {/* Page content here */}
         <label
           htmlFor="my-drawer-2"
-          className=" drawer-button md:hidden absolute top-4 left-4"
+          className=" drawer-button lg:hidden absolute top-4 left-4"
         >
           <GiHamburgerMenu className="text-2xl text-red-300" />
         </label>

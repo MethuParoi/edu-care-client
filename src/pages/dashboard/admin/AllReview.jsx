@@ -18,7 +18,7 @@ const AllReview = () => {
       </h1>
       {!isLoading && allReview?.length === 0 && (
         <h2 className="text-3xl font-semibold text-center text-gray-600 mt-16 mb-32">
-          No User found!
+          No review found!
         </h2>
       )}
       {/* table */}

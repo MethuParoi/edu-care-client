@@ -98,6 +98,30 @@ const MealDetails = () => {
     }
   };
 
+  //handle Meal Request
+  const handleMealRequest = async () => {
+    try {
+      const [res1, res2] = await Promise.all([
+        axiosSecure.post(`/user/insert-requested-meals/${user?.email}`, {
+          requestedMeal: [{ id: id }],
+        }),
+        axiosSecure.post(`/requested-meal/add-requested-meal`, {
+          id: id,
+          user: user?.email,
+        }),
+      ]).then((res) => {
+        if (
+          res[0].data.acknowledged === true &&
+          res[1].data.result.acknowledged === true
+        ) {
+          toast.success("Meal Requested successfully!");
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   if (isLoading) {
     return (
       <div className="min-w-screen h-[70dvh]">
@@ -169,7 +193,11 @@ const MealDetails = () => {
             <p className="text-gray-600">{mealDetails?.likes}</p>
           </div>
           {/* request meal */}
-          <button className="cursor-pointer px-2 py-1 bg-red-300 hover:bg-red-400 rounded-lg text-gray-600 font-medium">
+          <button
+            disabled={singleUser?.plan === "Bronze"}
+            onClick={() => handleMealRequest()}
+            className="cursor-pointer px-2 py-1 bg-red-300 hover:bg-red-400 rounded-lg text-gray-600 font-medium"
+          >
             Request Meal
           </button>
         </div>

@@ -45,7 +45,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/checkout",
+        path: "/checkout/:packageName",
         element: (
           <PrivateRoute>
             <Checkout />

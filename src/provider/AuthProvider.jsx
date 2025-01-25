@@ -19,6 +19,7 @@ function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [filteredMovies, setFilteredMovies] = useState([]);
+  const [packagePrice, setPackagePrice] = useState(0);
 
   const createUser = (email, password) => {
     setLoading(true);
@@ -123,6 +124,8 @@ function AuthProvider({ children }) {
     logoutUser,
     googleSignIn,
     updateUserProfile,
+    packagePrice,
+    setPackagePrice,
   };
 
   return (

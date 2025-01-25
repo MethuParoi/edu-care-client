@@ -1,30 +1,32 @@
-import React from "react";
-import { FaBangladeshiTakaSign } from "react-icons/fa6";
+import React, { useContext } from "react";
+import { FaBangladeshiTakaSign, FaDollarSign } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../provider/AuthProvider";
 
 const MembershipSection = () => {
   const navigate = useNavigate();
+  const { setPackagePrice } = useContext(AuthContext);
 
   const packages = [
     {
       name: "Silver",
-      price: "1999/month",
+      price: 49,
       gradient: "from-gray-400 to-gray-600",
     },
     {
       name: "Gold",
-      price: "2999/month",
+      price: 99,
       gradient: "from-yellow-400 to-yellow-600",
     },
     {
       name: "Platinum",
-      price: "4999/month",
+      price: 149,
       gradient: "from-blue-400 to-blue-600",
     },
   ];
 
   const handleRedirect = (packageName) => {
-    navigate(`/checkout`);
+    navigate(`/checkout/${packageName}`);
 
     // navigate(`/checkout/${packageName.toLowerCase()}`);
   };
@@ -42,11 +44,14 @@ const MembershipSection = () => {
           >
             <h3 className="text-2xl font-semibold mb-4">{pkg.name} Package</h3>
             <div className="flex items-center gap-x-2 mb-8">
-              <FaBangladeshiTakaSign className="" />
-              <p className="text-lg font-medium ">{pkg.price}</p>
+              <FaDollarSign className="" />
+              <p className="text-lg font-medium ">{pkg.price}/month</p>
             </div>
             <button
-              onClick={() => handleRedirect(pkg.name)}
+              onClick={() => {
+                handleRedirect(pkg.name);
+                setPackagePrice(pkg.price);
+              }}
               className="bg-cyan-400 hover:bg-cyan-500 text-gray-600 font-semibold py-2 px-4 rounded-lg transition"
             >
               Choose {pkg.name}

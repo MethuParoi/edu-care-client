@@ -38,6 +38,29 @@ const UpcomingMealDetails = () => {
     }
   }, [singleUser, id]);
 
+  //publish meal based on like count
+  const handlePublish = async () => {
+    // console.log(upcomingMealDetails.likes);
+    if (
+      upcomingMealDetails.likes === 9 &&
+      upcomingMealDetails.isPublished === false
+    ) {
+      const [res1, res2] = Promise.all([
+        axiosSecure.patch(
+          `/meal/update-upcoming-meal/${upcomingMealDetails._id}`
+        ),
+        axiosSecure.post(`/meal/add-liked-meal`, {
+          ...upcomingMealDetails,
+          _id: upcomingMealDetails._id,
+        }),
+      ]).then((res) => {
+        if (res[0].status === 200 && res[1].status === 200) {
+          toast.success("Meal published successfully!");
+        }
+      });
+    }
+  };
+
   //handle like button
   const handleLike = async () => {
     try {
@@ -54,6 +77,7 @@ const UpcomingMealDetails = () => {
           toast.success("Meal liked successfully!");
           refetch();
           refetchLikedMeal();
+          handlePublish();
         }
       });
       // Handle the responses if needed

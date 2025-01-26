@@ -3,17 +3,16 @@ import { AiFillProduct } from "react-icons/ai";
 import { IoLocation } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { FaBangladeshiTakaSign, FaRegStarHalfStroke } from "react-icons/fa6";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { toast } from "react-toastify";
 
 function UpcomingMealCard({ meal }) {
   const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure();
   const handleExplore = () => {
     navigate(`/upcoming-meal-details/${meal._id}`);
   };
 
-  //publish meal based on like count
-  if (meal.likes > 10) {
-    console.log("publish meal");
-  }
   return (
     <div
       className={`card bg-base-100 dark:bg-gray-700 w-80 xl:w-64 shadow-xl `}

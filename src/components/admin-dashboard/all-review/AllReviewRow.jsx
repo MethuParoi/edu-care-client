@@ -6,15 +6,15 @@ import { toast } from "react-toastify";
 import { useContext } from "react";
 import { AuthContext } from "../../../provider/AuthProvider";
 
-const AllReviewRow = ({ review, mealId, refetch }) => {
+const AllReviewRow = ({ review, mealId, refetch, user }) => {
   const navigate = useNavigate();
-  const { user } = useContext(AuthContext);
+  // const { user } = useContext(AuthContext);
   const axiosSecure = useAxiosSecure();
   const { isLoading, mealDetails } = useMealDetails(mealId);
 
   const handleDelete = () => {
     axiosSecure
-      .delete(`/review/delete-review/${user?.email}/${mealId}`)
+      .delete(`/review/delete-review/${user}/${mealId}`)
       .then((response) => {
         if (response.status === 200) {
           toast.success("Review deleted successfully");

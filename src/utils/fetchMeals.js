@@ -49,7 +49,7 @@ export function useMealDetails(id) {
   return { isLoading, mealDetails, error, refetch };
 }
 
-//---------------------------------------
+//------------------Upcoming---------------------
 export function useUpcomingMeal() {
   const axiosPublic = useAxiosPublic();
   const {
@@ -69,6 +69,31 @@ export function useUpcomingMeal() {
   });
 
   return { isLoading, upcomingMeal, error, refetch };
+}
+
+//upcoming meal details
+export function useUpcomingMealDetails(id) {
+  const axiosSecure = useAxiosSecure();
+
+  const {
+    isLoading,
+    data: upcomingMealDetails,
+    error,
+    refetch,
+  } = useQuery({
+    queryKey: ["upcomingMealDetails", id],
+    queryFn: async () => {
+      const response = await axiosSecure.get(
+        `/meal/get-upcoming-meal-details/${id}`
+      );
+      if (response.status !== 200) {
+        throw new Error("Network response was not ok");
+      }
+      return response.data;
+    },
+  });
+
+  return { isLoading, upcomingMealDetails, error, refetch };
 }
 
 //--------------------------------------Requested Meal

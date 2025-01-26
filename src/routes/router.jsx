@@ -21,6 +21,8 @@ import ServeMeal from "../pages/dashboard/admin/ServeMeal";
 import UpcomingMeal from "../pages/dashboard/admin/UpcomingMeal";
 import Meals from "../pages/Meals";
 import Checkout from "../pages/Checkout";
+import UpcomingMeals from "../pages/UpcomingMeals";
+import UpcomingMealDetails from "../pages/UpcomingMealDetails";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +36,18 @@ const router = createBrowserRouter([
       {
         path: "all-meals",
         element: <Meals />,
+      },
+      {
+        path: "upcoming-meals",
+        element: <UpcomingMeals />,
+      },
+      {
+        path: "/upcoming-meal-details/:id",
+        element: (
+          // <PrivateRoute>
+          <UpcomingMealDetails />
+          // </PrivateRoute>
+        ),
       },
 
       {

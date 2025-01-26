@@ -61,6 +61,7 @@ const AddUpcomingMeal = ({ refetch }) => {
       rating: 0,
       likes: 0,
       reviewsCount: 0,
+      subclass: "upcoming",
     };
 
     try {

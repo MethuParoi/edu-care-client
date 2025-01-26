@@ -95,3 +95,26 @@ export function useRequestedMeal() {
 
   return { isLoading, requestedMeal, error, refetch };
 }
+
+export function useAllRequestedMeal() {
+  const axiosSecure = useAxiosSecure();
+  const {
+    isLoading,
+    data: allRequestedMeal,
+    error,
+    refetch,
+  } = useQuery({
+    queryKey: ["allRequestedMeal"],
+    queryFn: async () => {
+      const response = await axiosSecure.get(
+        `/requested-meal/get-requested-meal`
+      );
+      if (response.status !== 200) {
+        throw new Error("Network response was not ok");
+      }
+      return response.data;
+    },
+  });
+
+  return { isLoading, allRequestedMeal, error, refetch };
+}

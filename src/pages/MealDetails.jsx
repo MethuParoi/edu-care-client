@@ -100,6 +100,7 @@ const MealDetails = () => {
 
   //handle Meal Request
   const handleMealRequest = async () => {
+    console.log("name:", user?.displayName);
     try {
       const [res1, res2] = await Promise.all([
         axiosSecure.post(`/user/insert-requested-meals/${user?.email}`, {
@@ -108,6 +109,7 @@ const MealDetails = () => {
         axiosSecure.post(`/requested-meal/add-requested-meal`, {
           id: id,
           user: user?.email,
+          name: user?.displayName,
           status: "pending",
         }),
       ]).then((res) => {

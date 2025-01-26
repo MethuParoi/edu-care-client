@@ -24,7 +24,7 @@ const PaymentHistory = () => {
         </div>
       )}
       {!isLoading && allPayment?.length === 0 && (
-        <h2 className="text-3xl font-semibold text-center text-gray-600 mt-16 mb-32">
+        <h2 className="text-3xl font-semibold text-center text-gray-600 mt-16 mb-32 self-center">
           No Payments found!
         </h2>
       )}

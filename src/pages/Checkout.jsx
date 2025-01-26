@@ -33,7 +33,7 @@ const Checkout = () => {
   return (
     <div>
       {/* <SectionTitle heading="Payment" subHeading="Please pay to eat" /> */}
-      <div className="max-w-3xl mx-auto my-24">
+      <div className="max-w-3xl sm:mx-auto my-24 mx-2">
         {clientSecret ? (
           <Elements stripe={stripePromise} options={options}>
             <CheckoutForm />

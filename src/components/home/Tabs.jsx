@@ -23,7 +23,7 @@ const Tabs = () => {
       />
       <div
         role="tabpanel"
-        className="tab-content bg-base-100 border-base-300 rounded-box p-6 min-h-[300px]"
+        className="tab-content bg-base-100 border-base-300 rounded-box p-6 min-h-[300px] w-[360px] sm:w-full"
       >
         {isLoading ? (
           <div className="flex justify-center items-center">
@@ -46,7 +46,7 @@ const Tabs = () => {
       />
       <div
         role="tabpanel"
-        className="tab-content bg-base-100 border-base-300 rounded-box p-6"
+        className="tab-content bg-base-100 border-base-300 rounded-box p-6 w-[360px] sm:w-full"
       >
         {isLoading ? (
           <div className="flex justify-center items-center">
@@ -69,7 +69,7 @@ const Tabs = () => {
       />
       <div
         role="tabpanel"
-        className="tab-content bg-base-100 border-base-300 rounded-box p-6"
+        className="tab-content bg-base-100 border-base-300 rounded-box p-6 w-[360px] sm:w-full"
       >
         {isLoading ? (
           <div className="flex justify-center items-center">
@@ -87,12 +87,12 @@ const Tabs = () => {
         name="my_tabs_2"
         role="tab"
         className="tab"
-        aria-label="All Meals"
+        aria-label="All"
         onClick={() => setActiveTab("all")}
       />
       <div
         role="tabpanel"
-        className="tab-content bg-base-100 border-base-300 rounded-box p-6"
+        className="tab-content bg-base-100 border-base-300 rounded-box p-6 w-[360px] sm:w-full"
       >
         {isLoading ? (
           <div className="flex justify-center items-center">

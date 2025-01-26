@@ -33,7 +33,7 @@ const MembershipSection = () => {
 
   return (
     <div className="p-6">
-      <p className=" text-primary dark:text-gray-400 sm:text-5xl text-4xl font-semibold text-center nunitoSans-font border-b-2 border-primary dark:border-gray-400 w-[480px] mx-auto my-10">
+      <p className=" text-primary dark:text-gray-400 sm:text-5xl text-2xl font-semibold text-center nunitoSans-font border-b-2 border-primary dark:border-gray-400 w-[300px] sm:w-[480px] mx-auto my-10">
         Upgrade to Premium Packages
       </p>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

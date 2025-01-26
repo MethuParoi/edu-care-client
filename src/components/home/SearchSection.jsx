@@ -4,10 +4,10 @@ const SearchSection = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="w-full mt-10 flex justify-between items-center bg-gray-200 p-2 rounded-[2rem] h-16">
+    <div className="w-[320px] sm:w-full mt-10 flex justify-between items-center bg-gray-200 p-2 rounded-[2rem] h-16">
       <div>
         <input
-          className="w-[160px] sm:w-[300px] h-12 bg-gray-200 px-5 outline-none"
+          className="w-[100px] sm:w-[300px] h-12 bg-gray-200 px-5 outline-none"
           type="text"
           placeholder="Search Your Desired Meal"
         />

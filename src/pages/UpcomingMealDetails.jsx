@@ -97,7 +97,7 @@ const UpcomingMealDetails = () => {
   }
 
   return (
-    <div className=" min-w-screen flex md:flex-row flex-col md:gap-x-16 md:justify-center md:mt-16 md:mb-32">
+    <div className=" min-w-screen flex md:flex-row flex-col md:gap-x-16 md:justify-center md:mt-16 md:mb-32 mb-16">
       <div>
         <img
           className="w-full h-80 object-cover

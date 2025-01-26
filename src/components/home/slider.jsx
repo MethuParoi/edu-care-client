@@ -79,7 +79,7 @@ const Slider = () => {
           </div>
           {/* Mobile */}
           {isMobile && (
-            <div className="block w-full md:hidden">
+            <div className="block w-[320px] sm:w-full md:hidden">
               <img
                 src={displayedSlides[mobilePage]}
                 alt={`Slide ${mobilePage + 1}`}
@@ -97,7 +97,7 @@ const Slider = () => {
 
               <div
                 onClick={handleNextPage}
-                className="z-10 absolute top-32 right-4"
+                className="z-10 absolute top-32 right-40 sm:right-4"
               >
                 <button className="bg-gray-800 bg-opacity-60 text-white p-2 rounded-full flex justify-center items-center">
                   <FaAngleRight size={13} />

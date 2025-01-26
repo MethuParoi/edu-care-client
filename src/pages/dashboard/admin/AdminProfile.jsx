@@ -1,3 +1,5 @@
+//NOT USED
+
 import { useContext } from "react";
 // import "./Profile.css";
 import ProfileImageSection from "../../../components/admin-dashboard/admin-profile/ProfileImageSection";
@@ -16,7 +18,7 @@ const AdminProfile = () => {
             <CgProfile size={"2.5rem"} />
           </div>
           <div>
-            <p className="text-[1.2rem] sm:text-[1.8rem] font-semibold pl-3">{`Welcome, ${user?.displayName} (Admin)`}</p>
+            <p className="text-[1.2rem] sm:text-[1.8rem] font-semibold pl-3">{`Wcome, ${user?.displayName} (Admin)`}</p>
           </div>
         </div>
       </div>

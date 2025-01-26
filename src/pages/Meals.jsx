@@ -169,7 +169,7 @@ const Meals = () => {
         </div>
       </div>
       {/* loading state */}
-      {loading && (
+      {isLoading && (
         <div className="absolute top-1/2 left-1/2">
           <Loader />
         </div>

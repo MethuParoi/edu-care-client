@@ -6,7 +6,7 @@ import gold from "../../../assets/badge/gold.png";
 import platinum from "../../../assets/badge/platinum.png";
 import { useEffect, useState } from "react";
 
-const ProfileDesc = ({ name, mail, badge, role }) => {
+const ProfileDesc = ({ name, mail, badge, role, userMealsCount }) => {
   const [badgeImage, setBadgeImage] = useState("");
   useEffect(() => {
     if (badge === "Bronze") {
@@ -38,6 +38,12 @@ const ProfileDesc = ({ name, mail, badge, role }) => {
       <div className="pt-5 pb-3 sm:border-b-2 border-gray-600">
         <h1 className="text-md sm:text-xl lg:text-3xl">{`User Email: ${mail}`}</h1>
       </div>
+
+      {role === "admin" && (
+        <div className="pt-5 pb-3 sm:border-b-2 border-gray-600">
+          <h1 className="text-md sm:text-xl lg:text-3xl">{`Meal added: ${userMealsCount}`}</h1>
+        </div>
+      )}
     </div>
   );
 };

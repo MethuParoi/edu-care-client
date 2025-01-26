@@ -5,12 +5,23 @@ import ProfileDesc from "../../../components/user-dashboard/user-profile/Profile
 import { CgProfile } from "react-icons/cg";
 import { AuthContext } from "../../../provider/AuthProvider";
 import { useFetchSingleUser } from "../../../utils/fetchUsers";
+import { useFeaturedMeal } from "../../../utils/fetchMeals";
+import { useState } from "react";
 
 const UserProfile = () => {
   const { user } = useContext(AuthContext);
+  const [userMealsCount, setUserMealsCount] = useState(0);
   const { isLoading, singleUser, error, refetch } = useFetchSingleUser(
     user?.email
   );
+  const { isLoading: Loading, featuredMeal } = useFeaturedMeal("all");
+
+  useEffect(() => {
+    const userMealsCount = featuredMeal?.filter(
+      (meal) => meal.distributorEmail === user?.email
+    ).length;
+    setUserMealsCount(userMealsCount);
+  }, [featuredMeal, user?.email]);
 
   return (
     <div className=" w-full  text-red-300  ">
@@ -40,6 +51,7 @@ const UserProfile = () => {
             name={user?.displayName}
             mail={user?.email}
             role={singleUser?.role}
+            userMealsCount={userMealsCount}
           />
         </div>
       </div>

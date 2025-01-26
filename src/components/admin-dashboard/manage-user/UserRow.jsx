@@ -7,6 +7,7 @@ const UserRow = ({
   subscription_status,
   userid,
   user_role,
+  plan,
   setLoading,
   refetch,
 }) => {
@@ -31,7 +32,7 @@ const UserRow = ({
         {email}
       </p>
       <p className="text-lg xl:text-xl font-medium text-gray-300 line-clamp-1">
-        {subscription_status}
+        {plan}
       </p>
 
       <div className="flex space-x-4">

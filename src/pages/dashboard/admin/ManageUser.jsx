@@ -79,6 +79,7 @@ const ManageUser = () => {
                     email={user.email}
                     userid={user._id}
                     user_role={user.role}
+                    plan={user.plan}
                     setLoading={setLoading}
                     subscription_status={user.subscription_status}
                     refetch={refetch}
@@ -91,6 +92,7 @@ const ManageUser = () => {
                     email={user.email}
                     userid={user._id}
                     user_role={user.role}
+                    plan={user.plan}
                     setLoading={setLoading}
                     subscription_status={user.subscription_status}
                     refetch={refetch}

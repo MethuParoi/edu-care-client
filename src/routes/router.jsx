@@ -44,18 +44,18 @@ const router = createBrowserRouter([
       {
         path: "/upcoming-meal-details/:id",
         element: (
-          // <PrivateRoute>
-          <UpcomingMealDetails />
-          // </PrivateRoute>
+          <PrivateRoute>
+            <UpcomingMealDetails />
+          </PrivateRoute>
         ),
       },
 
       {
         path: "/meal-details/:id",
         element: (
-          // <PrivateRoute>
-          <MealDetails />
-          // </PrivateRoute>
+          <PrivateRoute>
+            <MealDetails />
+          </PrivateRoute>
         ),
       },
       {

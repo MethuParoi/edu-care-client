@@ -56,7 +56,31 @@ const UpcomingMeal = () => {
           </div>
 
           <div className="">
-            {upcomingMeal.map((meal) => (
+            {upcomingMeal
+              .sort((a, b) => b.likes - a.likes) // Sort in descending order based on likes
+              .map((meal) => (
+                <UpcomingMealRow
+                  key={meal._id}
+                  title={meal.title}
+                  price={meal.price}
+                  mealType={meal.mealType}
+                  ingredients={meal.ingredients}
+                  mealImage={meal.mealImage}
+                  distributorName={meal.distributorName}
+                  distributorEmail={meal.distributorEmail}
+                  postTime={meal.postTime}
+                  rating={meal.rating}
+                  description={meal.description}
+                  likes={meal.likes}
+                  reviews_count={meal.reviewsCount}
+                  meal_id={meal._id}
+                  refetch={refetch}
+                  setIsPublishing={setIsPublishing}
+                  // refetchDetail={refetchDetail}
+                  // setMeal_id={setMeal_id}
+                />
+              ))}
+            {/* {upcomingMeal.map((meal) => (
               <UpcomingMealRow
                 key={meal._id}
                 title={meal.title}
@@ -77,7 +101,7 @@ const UpcomingMeal = () => {
                 // refetchDetail={refetchDetail}
                 // setMeal_id={setMeal_id}
               />
-            ))}
+            ))} */}
           </div>
         </div>
       )}

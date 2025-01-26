@@ -48,6 +48,7 @@ const AllReview = () => {
                     review={singleReview.review}
                     user={singleReview.user_id}
                     mealId={singleReview.meal_id}
+                    refetch={refetch}
                   />
                 ))
               )

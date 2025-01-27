@@ -9,7 +9,7 @@ const SearchSection = () => {
         <input
           className="w-[100px] sm:w-[300px] h-12 bg-gray-200 px-5 outline-none"
           type="text"
-          placeholder="Search Your Desired Meal"
+          placeholder="Search Your Desired Scholarship"
         />
       </div>
 

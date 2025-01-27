@@ -33,138 +33,139 @@ const router = createBrowserRouter([
         path: "/",
         element: <Home />,
       },
-      {
-        path: "all-meals",
-        element: <Meals />,
-      },
-      {
-        path: "upcoming-meals",
-        element: <UpcomingMeals />,
-      },
-      {
-        path: "/upcoming-meal-details/:id",
-        element: (
-          <PrivateRoute>
-            <UpcomingMealDetails />
-          </PrivateRoute>
-        ),
-      },
+      // {
+      //   path: "all-meals",
+      //   element: <Meals />,
+      // },
+      // {
+      //   path: "upcoming-meals",
+      //   element: <UpcomingMeals />,
+      // },
+      // {
+      //   path: "/upcoming-meal-details/:id",
+      //   element: (
+      //     <PrivateRoute>
+      //       <UpcomingMealDetails />
+      //     </PrivateRoute>
+      //   ),
+      // },
 
-      {
-        path: "/meal-details/:id",
-        element: (
-          <PrivateRoute>
-            <MealDetails />
-          </PrivateRoute>
-        ),
-      },
-      {
-        path: "/checkout/:packageName",
-        element: (
-          <PrivateRoute>
-            <Checkout />
-          </PrivateRoute>
-        ),
-      },
-      {
-        path: "/add-food",
-        element: (
-          <PrivateRoute>
-            <AddFood />
-          </PrivateRoute>
-        ),
-      },
+      // {
+      //   path: "/meal-details/:id",
+      //   element: (
+      //     <PrivateRoute>
+      //       <MealDetails />
+      //     </PrivateRoute>
+      //   ),
+      // },
+      // {
+      //   path: "/checkout/:packageName",
+      //   element: (
+      //     <PrivateRoute>
+      //       <Checkout />
+      //     </PrivateRoute>
+      //   ),
+      // },
+      // {
+      //   path: "/add-food",
+      //   element: (
+      //     <PrivateRoute>
+      //       <AddFood />
+      //     </PrivateRoute>
+      //   ),
+      // },
     ],
   },
   // user dashboard routes
-  {
-    path: "/dashboard",
-    element: <Dashboard />,
-    children: [
-      {
-        path: "my-reviews",
-        element: <MyReview />,
-      },
+  // {
+  //   path: "/dashboard",
+  //   element: <Dashboard />,
+  //   children: [
+  //     {
+  //       path: "my-reviews",
+  //       element: <MyReview />,
+  //     },
 
-      {
-        path: "payment-history",
-        element: (
-          // <PrivateRoute>
-          <PaymentHistory />
-          // </PrivateRoute>
-        ),
-      },
-      {
-        path: "requested-meals",
-        element: (
-          // <PrivateRoute>
-          <RequestedMeal />
-          // </PrivateRoute>
-        ),
-      },
-      {
-        path: "profile",
-        element: (
-          // <PrivateRoute>
-          <UserProfile />
-          // </PrivateRoute>
-        ),
-      },
-    ],
-  },
+  //     {
+  //       path: "payment-history",
+  //       element: (
+  //         // <PrivateRoute>
+  //         <PaymentHistory />
+  //         // </PrivateRoute>
+  //       ),
+  //     },
+  //     {
+  //       path: "requested-meals",
+  //       element: (
+  //         // <PrivateRoute>
+  //         <RequestedMeal />
+  //         // </PrivateRoute>
+  //       ),
+  //     },
+  //     {
+  //       path: "profile",
+  //       element: (
+  //         // <PrivateRoute>
+  //         <UserProfile />
+  //         // </PrivateRoute>
+  //       ),
+  //     },
+  //   ],
+  // },
+
   // admin dashboard routes
   //TODO: add admin route checker
-  {
-    path: "/dashboard",
-    element: <Dashboard />,
-    children: [
-      {
-        path: "add-meal",
-        element: <AddMeal />,
-      },
+  //   {
+  //     path: "/dashboard",
+  //     element: <Dashboard />,
+  //     children: [
+  //       {
+  //         path: "add-meal",
+  //         element: <AddMeal />,
+  //       },
 
-      {
-        path: "profile",
-        element: (
-          // <AdminRoute>
-          <AdminProfile />
-          // </AdminRoute>
-        ),
-      },
-      {
-        path: "all-meals",
-        element: <AllMeal />,
-      },
-      {
-        path: "all-reviews",
-        element: <AllReview />,
-      },
-      {
-        path: "manage-users",
-        element: <ManageUser />,
-      },
-      {
-        path: "serve-meals",
-        element: <ServeMeal />,
-      },
-      {
-        path: "upcoming-meals",
-        element: <UpcomingMeal />,
-      },
-    ],
-  },
-  {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/signup",
-    element: <Register />,
-  },
-  {
-    path: "*",
-    element: <NotFound />,
-  },
+  //       {
+  //         path: "profile",
+  //         element: (
+  //           // <AdminRoute>
+  //           <AdminProfile />
+  //           // </AdminRoute>
+  //         ),
+  //       },
+  //       {
+  //         path: "all-meals",
+  //         element: <AllMeal />,
+  //       },
+  //       {
+  //         path: "all-reviews",
+  //         element: <AllReview />,
+  //       },
+  //       {
+  //         path: "manage-users",
+  //         element: <ManageUser />,
+  //       },
+  //       {
+  //         path: "serve-meals",
+  //         element: <ServeMeal />,
+  //       },
+  //       {
+  //         path: "upcoming-meals",
+  //         element: <UpcomingMeal />,
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     path: "/login",
+  //     element: <Login />,
+  //   },
+  //   {
+  //     path: "/signup",
+  //     element: <Register />,
+  //   },
+  //   {
+  //     path: "*",
+  //     element: <NotFound />,
+  //   },
 ]);
 
 export default router;

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
-import slide1 from "../../assets/hero/hostel-room-1.jpg";
-import slide2 from "../../assets/hero/hostel-room-2.png";
-import slide3 from "../../assets/hero/hostel-room-3.jpg";
+import slide1 from "../../assets/hero/sc-0.webp";
+import slide2 from "../../assets/hero/sc-1.jpeg";
+import slide3 from "../../assets/hero/sc-2.jpg";
 
 const Slider = () => {
   const [page, setPage] = useState(0);

@@ -93,18 +93,26 @@ function Navbar({ toggleTheme, currentTheme }) {
             </li>
             <li>
               <button
-                onClick={() => navigate("/all-meals")}
+                onClick={() => navigate("/all-scholarship")}
                 className="text-neutral"
               >
-                All Meals
+                All Scholarship
               </button>
             </li>
             <li>
               <button
-                onClick={() => navigate("/upcoming-meals")}
+                onClick={() => navigate("/user-dashboard")}
                 className="text-neutral"
               >
-                Upcoming Meals
+                User Dashboard
+              </button>
+            </li>
+            <li>
+              <button
+                onClick={() => navigate("/admin-dashboard")}
+                className="text-neutral"
+              >
+                Admin Dashboard
               </button>
             </li>
             {/* <li>
@@ -130,7 +138,7 @@ function Navbar({ toggleTheme, currentTheme }) {
           className="flex items-center gap-x-2 text-sm sm:text-4xl font-semibold text-neutral"
         >
           <img className="w-20 h-20" src={logo} alt="logo" />
-          <p className="hidden md:block lg:hidden xl:block">CloudHostel</p>
+          <p className="hidden md:block lg:hidden xl:block">EduCare</p>
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
@@ -153,17 +161,27 @@ function Navbar({ toggleTheme, currentTheme }) {
                 location.pathname === "/all-meals" && "active"
               }`}
             >
-              All Meals
+              All Scholarship
             </button>
           </li>
           <li>
             <button
-              onClick={() => navigate("/upcoming-meals")}
+              onClick={() => navigate("/user-dashboard")}
               className={`text-neutral ${
-                location.pathname === "/upcoming-meals" && "active"
+                location.pathname === "/user-dashboard" && "active"
               }`}
             >
-              Upcoming Meals
+              User Dashboard
+            </button>
+          </li>
+          <li>
+            <button
+              onClick={() => navigate("/admin-dashboard")}
+              className={`text-neutral ${
+                location.pathname === "/admin-dashboard" && "active"
+              }`}
+            >
+              Admin Dashboard
             </button>
           </li>
           {/* <li>

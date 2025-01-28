@@ -4,10 +4,10 @@ import { IoLocation } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { FaBangladeshiTakaSign, FaRegStarHalfStroke } from "react-icons/fa6";
 
-function MealCard({ meal }) {
+function ScholarshipCard({ university }) {
   const navigate = useNavigate();
   const handleExplore = () => {
-    navigate(`/meal-details/${meal._id}`);
+    navigate(`/scholarship-details/${university._id}`);
   };
   return (
     <div
@@ -16,20 +16,20 @@ function MealCard({ meal }) {
       <figure>
         <img
           className="w-full h-60 object-cover"
-          src={meal.mealImage}
+          src={university?.universityLogo}
           alt="spot"
         />
       </figure>
       <div className="card-body px-2 py-5">
-        <h2 className="card-title line-clamp-1">{meal.title}</h2>
+        <h2 className="card-title line-clamp-1">{university.universityName}</h2>
         <div className="flex items-center justify-center mt-1">
-          <div className="badge badge-secondary bg-green-200 border-transparent text-gray-800">
-            {meal.mealType}
+          <div className="badge badge-secondary bg-green-200 border-transparent text-sm line-clamp-1 text-gray-800">
+            {university.scholarshipCategory}
           </div>
           <div className="flex items-center gap-x-2 ml-2">
             <AiFillProduct className="text-xl" />
             <p className="text-gray-600 dark:text-white line-clamp-1">
-              {meal.distributorName}
+              {university.subjectCategory}
             </p>
           </div>
         </div>
@@ -38,12 +38,14 @@ function MealCard({ meal }) {
           <div className="flex items-center gap-x-2">
             <FaBangladeshiTakaSign className="text-xl" />
 
-            <p className="text-gray-600 dark:text-white">{meal.price}</p>
+            <p className="text-gray-600 dark:text-white">
+              {university.applicationFees}
+            </p>
           </div>
 
           <div className="flex items-center gap-x-2">
             <FaRegStarHalfStroke className="text-xl" />
-            <p className="text-gray-600 dark:text-white">{meal.rating}</p>
+            <p className="text-gray-600 dark:text-white">{university.rating}</p>
           </div>
         </div>
 
@@ -61,4 +63,4 @@ function MealCard({ meal }) {
   );
 }
 
-export default MealCard;
+export default ScholarshipCard;

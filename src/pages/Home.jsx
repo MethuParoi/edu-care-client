@@ -3,6 +3,7 @@ import Hero from "../components/home/Hero";
 import OurFacilities from "../components/home/OurFacilities";
 // import Tabs from "../components/home/Tabs";
 import MembershipSection from "../components/home/MembershipSection";
+import TabRow from "../components/home/TabRow";
 
 const Home = () => {
   return (
@@ -16,7 +17,7 @@ const Home = () => {
       <p className=" text-primary dark:text-gray-400 sm:text-5xl text-2xl font-semibold text-center nunitoSans-font border-b-2 border-primary dark:border-gray-400 sm:w-[350px] w-[200px] ml-20  sm:mx-auto mt-5 mb-10">
         Top Scholarship
       </p>
-      {/* <Tabs /> */}
+      <TabRow />
       {/* Membership section */}
       <MembershipSection />
       {/* Our Facilities section */}

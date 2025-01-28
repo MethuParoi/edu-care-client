@@ -156,9 +156,9 @@ function Navbar({ toggleTheme, currentTheme }) {
 
           <li>
             <button
-              onClick={() => navigate("/all-meals")}
+              onClick={() => navigate("/all-scholarship")}
               className={`text-neutral ${
-                location.pathname === "/all-meals" && "active"
+                location.pathname === "/all-scholarship" && "active"
               }`}
             >
               All Scholarship

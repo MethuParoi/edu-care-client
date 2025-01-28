@@ -1,13 +1,13 @@
 import { IoSearch } from "react-icons/io5";
-import { useFeaturedMeal } from "../utils/fetchMeals";
+import { useFeaturedUniversity } from "../utils/fetchUniversity";
 import Loader from "../components/ui/Loader/Loader";
 import { useState } from "react";
-import MealCard from "../components/home/MealCard";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import useAxiosPublic from "../hooks/useAxiosPublic";
 import { set } from "react-hook-form";
+import ScholarshipCard from "../components/home/ScholarshipCard";
 
-const Meals = () => {
+const AllScholarship = () => {
   const [filteredMeal, setFilteredMeal] = useState([]);
   const [sortedMeal, setSortedMeal] = useState([]);
   const [sort, setSort] = useState("");
@@ -47,7 +47,8 @@ const Meals = () => {
       });
   };
 
-  const { isLoading, featuredMeal, error, refetch } = useFeaturedMeal("all");
+  const { isLoading, featuredUniversity, error, refetch } =
+    useFeaturedUniversity("all");
   return (
     <div className="md:max-w-[780px] lg:max-w-[1000px] xl:max-w-[1200px] mx-auto pb-10 px-5">
       <p className=" text-primary dark:text-gray-400 text-3xl sm:text-5xl  font-semibold text-center nunitoSans-font border-b-2 border-primary dark:border-gray-400 w-[300px] sm:w-[350px] mx-auto mt-5 mb-10">
@@ -174,7 +175,7 @@ const Meals = () => {
           <Loader />
         </div>
       )}
-      {!isLoading && featuredMeal?.length === 0 && (
+      {!isLoading && featuredUniversity?.length === 0 && (
         <h2 className="text-3xl font-semibold text-center text-gray-600 mt-16 mb-32">
           No Meal found!
         </h2>
@@ -184,22 +185,22 @@ const Meals = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 mb-10">
         {sortedMeal?.length != 0 &&
           filteredMeal?.length === 0 &&
-          sortedMeal?.map((meal, index) => (
-            <MealCard key={index} meal={meal} />
+          sortedMeal?.map((university, index) => (
+            <ScholarshipCard key={index} university={university} />
           ))}
         {sortedMeal?.length === 0 &&
           filteredMeal?.length != 0 &&
-          filteredMeal?.map((meal, index) => (
-            <MealCard key={index} meal={meal} />
+          filteredMeal?.map((university, index) => (
+            <ScholarshipCard key={index} university={university} />
           ))}
         {sortedMeal?.length === 0 &&
           filteredMeal?.length === 0 &&
-          featuredMeal?.map((meal, index) => (
-            <MealCard key={index} meal={meal} />
+          featuredUniversity?.map((university, index) => (
+            <ScholarshipCard key={index} university={university} />
           ))}
       </div>
     </div>
   );
 };
 
-export default Meals;
+export default AllScholarship;

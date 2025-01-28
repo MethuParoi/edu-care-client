@@ -7,7 +7,7 @@ import { AiFillLike, AiFillProduct, AiOutlineLike } from "react-icons/ai";
 import { CiCalendarDate } from "react-icons/ci";
 import { IoLocation } from "react-icons/io5";
 import Button from "../components/ui/Button";
-import { useMealDetails } from "../utils/fetchMeals";
+import { useUniversityDetails } from "../utils/fetchUniversity";
 import { FaBangladeshiTakaSign, FaStarHalfStroke } from "react-icons/fa6";
 import { MdOutlineRateReview } from "react-icons/md";
 import useAxiosSecure from "../hooks/useAxiosSecure";
@@ -15,7 +15,7 @@ import { toast } from "react-toastify";
 import { useFetchSingleUser } from "../utils/fetchUsers";
 // import RequestModal from "../components/food-details/RequestModal";
 
-const MealDetails = () => {
+const ScholarshipDetails = () => {
   const [review, setReview] = useState("");
   const { user } = useContext(AuthContext);
   const axiosSecure = useAxiosSecure();
@@ -23,16 +23,17 @@ const MealDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const { isLoading, mealDetails, error, refetch } = useMealDetails(id);
-  const { singleUser, refetch: refetchLikedMeal } = useFetchSingleUser(
+  const { isLoading, universityDetails, error, refetch } =
+    useUniversityDetails(id);
+  const { singleUser, refetch: refetchLikedscholarship } = useFetchSingleUser(
     user?.email
   );
 
-  //disble like button if user already liked the meal
+  //disble like button if user already liked the scholarship
   const [isLiked, setIsLiked] = useState(false);
   useEffect(() => {
-    if (singleUser?.likedMeals === 0) return;
-    if (singleUser?.likedMeals?.includes(id)) {
+    if (singleUser?.likedscholarships === 0) return;
+    if (singleUser?.likedscholarships?.includes(id)) {
       setIsLiked(true);
     }
   }, [singleUser, id]);
@@ -40,19 +41,19 @@ const MealDetails = () => {
   //handle like button
   const handleLike = async () => {
     try {
-      const [res, resLikedMeal] = await Promise.all([
-        axiosSecure.patch(`meal/increase-like/${id}`),
-        axiosSecure.post(`/user/insert-liked-meals/${user?.email}`, {
-          likedMeals: [id],
+      const [res, resLikedscholarship] = await Promise.all([
+        axiosSecure.patch(`scholarship/increase-like/${id}`),
+        axiosSecure.post(`/user/insert-liked-scholarships/${user?.email}`, {
+          likedscholarships: [id],
         }),
       ]).then((res) => {
         if (
           res[0].data.modifiedCount === 1 &&
           res[1].data.modifiedCount === 1
         ) {
-          toast.success("Meal liked successfully!");
+          toast.success("scholarship liked successfully!");
           refetch();
-          refetchLikedMeal();
+          refetchLikedscholarship();
         }
       });
       // Handle the responses if needed
@@ -64,32 +65,36 @@ const MealDetails = () => {
   //handle review post
   const handleReview = async () => {
     try {
-      const [res, resLikedMeal, resReviewedMeal] = await Promise.all([
-        axiosSecure.patch(`meal/increase-review/${id}`),
-        axiosSecure.post(`/user/insert-reviewed-meals/${user?.email}`, {
-          reviewedMeal: [{ id: id, review: review }],
-        }),
-        axiosSecure.post(`/review/add-review/678ca678c4c2ef19970bc09f`, {
-          review: [
+      const [res, resLikedscholarship, resReviewedscholarship] =
+        await Promise.all([
+          axiosSecure.patch(`scholarship/increase-review/${id}`),
+          axiosSecure.post(
+            `/user/insert-reviewed-scholarships/${user?.email}`,
             {
-              user_id: user?.email,
-              meal_id: id,
-              review: review,
-            },
-          ],
-        }),
-      ]).then((res) => {
-        if (
-          res[0].data.modifiedCount === 1 &&
-          res[1].data.modifiedCount === 1 &&
-          res[2].data.acknowledged === true
-        ) {
-          toast.success("Review posted successfully!");
-          refetch();
-          setReview("");
-        }
-      });
-      // const response = await axiosSecure.post(`/meal/post-review/${id}`, {
+              reviewedscholarship: [{ id: id, review: review }],
+            }
+          ),
+          axiosSecure.post(`/review/add-review/678ca678c4c2ef19970bc09f`, {
+            review: [
+              {
+                user_id: user?.email,
+                scholarship_id: id,
+                review: review,
+              },
+            ],
+          }),
+        ]).then((res) => {
+          if (
+            res[0].data.modifiedCount === 1 &&
+            res[1].data.modifiedCount === 1 &&
+            res[2].data.acknowledged === true
+          ) {
+            toast.success("Review posted successfully!");
+            refetch();
+            setReview("");
+          }
+        });
+      // const response = await axiosSecure.post(`/scholarship/post-review/${id}`, {
       //   review,
       //   email: user?.email,
       // });
@@ -98,15 +103,15 @@ const MealDetails = () => {
     }
   };
 
-  //handle Meal Request
-  const handleMealRequest = async () => {
+  //handle scholarship Request
+  const handlescholarshipRequest = async () => {
     console.log("name:", user?.displayName);
     try {
       const [res1, res2] = await Promise.all([
-        axiosSecure.post(`/user/insert-requested-meals/${user?.email}`, {
-          requestedMeal: [{ id: id, status: "pending" }],
+        axiosSecure.post(`/user/insert-requested-scholarships/${user?.email}`, {
+          requestedscholarship: [{ id: id, status: "pending" }],
         }),
-        axiosSecure.post(`/requested-meal/add-requested-meal`, {
+        axiosSecure.post(`/requested-scholarship/add-requested-scholarship`, {
           id: id,
           user: user?.email,
           name: user?.displayName,
@@ -117,7 +122,7 @@ const MealDetails = () => {
           res[0].data.acknowledged === true &&
           res[1].data.result.acknowledged === true
         ) {
-          toast.success("Meal Requested successfully!");
+          toast.success("scholarship Requested successfully!");
         }
       });
     } catch (error) {
@@ -141,82 +146,84 @@ const MealDetails = () => {
         <img
           className="w-full h-80 object-cover
             md:w-[600px] md:h-[400px] md:rounded-lg"
-          src={mealDetails?.mealImage}
+          src={universityDetails?.universityLogo}
           alt="movie-poster"
         />
       </div>
 
-      {/* food details */}
+      {/* uni details */}
       <div className="flex flex-col gap-y-4 md:w-[40%] px-2 mt-5 md:mt-0">
-        <h1 className="text-3xl font-semibold">{mealDetails?.title}</h1>
+        <h1 className="text-3xl font-semibold">
+          {universityDetails?.universityName}
+        </h1>
         <div className="flex gap-x-4">
           <div className="badge badge-secondary bg-green-200 border-transparent text-gray-800">
-            {mealDetails?.mealType}
+            {universityDetails?.scholarshipCategory}
           </div>
         </div>
         {/* price, distributor, post time */}
         <div className="flex flex-wrap items-center gap-x-4 my-2 gap-y-2">
           <div className="flex items-center gap-x-2">
-            <FaBangladeshiTakaSign className="text-xl" />
-            <p className="text-gray-600">{mealDetails?.price}</p>
+            <span className="font-semibold">Application Fees: </span>
+            <p className="text-gray-600">
+              {universityDetails?.applicationFees}
+            </p>
           </div>
           <div className="flex items-center gap-x-2">
             {/* <AiFillProduct className="text-xl" /> */}
             <p className="text-gray-600">
               {" "}
-              <span className="font-semibold">Distributor: </span>
-              {mealDetails?.distributorName}
+              <span className="font-semibold">Subject Category: </span>
+              {universityDetails?.subjectCategory}
             </p>
           </div>
           <div className="flex items-center gap-x-2">
             <CiCalendarDate className="text-2xl font-bold" />
-            <p className="text-gray-600">{mealDetails?.postTime}</p>
+            <p className="text-gray-600">{universityDetails?.postDate}</p>
           </div>
         </div>
-        {/* rating, review, request and like button */}
+        {/* charges */}
         <div className="flex items-center gap-x-6 mt-1">
           <div className="flex items-center gap-x-2">
             <FaStarHalfStroke className="text-2xl font-bold" />
-            <p className="text-gray-600">{mealDetails?.rating}</p>
+            <p className="text-gray-600">{universityDetails?.rating}</p>
           </div>
           {/* review count */}
           <div className="flex items-center gap-x-2">
-            <MdOutlineRateReview className="text-2xl font-bold" />
-            <p className="text-gray-600">{mealDetails?.reviewsCount}</p>
+            <span className="font-semibold">Service Charge: </span>
+            <p className="text-gray-600">{universityDetails?.service_charge}</p>
           </div>
           {/* like button */}
           <div className="flex flex-wrap gap-y-2 items-center gap-x-2">
-            <button
-              disabled={isLiked}
-              onClick={() => handleLike()}
-              className="cursor-pointer px-2 py-1 bg-red-300 hover:bg-red-400 rounded-lg"
-            >
-              <AiOutlineLike className="text-2xl font-bold" />
-            </button>
-            <p className="text-gray-600">{mealDetails?.likes}</p>
+            <span className="font-semibold">Stipend: </span>
+            <p className="text-gray-600">{universityDetails?.stipend}</p>
           </div>
-          {/* request meal */}
-          <button
-            disabled={singleUser?.plan === "Bronze"}
-            onClick={() => handleMealRequest()}
-            className="cursor-pointer px-2 py-1 bg-red-300 hover:bg-red-400 rounded-lg text-gray-600 font-medium"
-          >
-            Request Meal
-          </button>
+          {/* request scholarship */}
         </div>
         {/* details */}
-        <p className="line-clamp-5 ">{mealDetails?.description}</p>
+        <p className="line-clamp-5 ">
+          {universityDetails?.scholarshipDescription}
+        </p>
+
+        {/*  button */}
+        <button
+          //   disabled={singleUser?.plan === "Bronze"}
+          onClick={() => handlescholarshipRequest()}
+          className="cursor-pointer w-48  h-12 bg-red-300 hover:bg-red-400 rounded-lg text-gray-100 font-medium"
+        >
+          Request scholarship
+        </button>
         {/* ingredients */}
-        <div className="mb-4">
+        {/* <div className="mb-4">
           <h1 className="text-xl font-semibold">Ingredients:</h1>
           <ul className="list-disc list-inside">
-            {Array.isArray(mealDetails?.ingredients)
-              ? mealDetails.ingredients.map((ingredient, index) => (
+            {Array.isArray(universityDetails?.ingredients)
+              ? universityDetails.ingredients.map((ingredient, index) => (
                   <li key={index} className="text-gray-600">
                     {ingredient}
                   </li>
                 ))
-              : mealDetails?.ingredients
+              : universityDetails?.ingredients
                   ?.split(",")
                   .map((ingredient, index) => (
                     <li key={index} className="text-gray-600">
@@ -224,10 +231,10 @@ const MealDetails = () => {
                     </li>
                   ))}
           </ul>
-        </div>
+        </div> */}
 
         {/* post review section */}
-        <div className="flex flex-col items-start gap-y-2">
+        {/* <div className="flex flex-col items-start gap-y-2">
           <input
             type="text"
             onChange={(e) => setReview(e.target.value)}
@@ -239,7 +246,7 @@ const MealDetails = () => {
             label={"Post Review"}
             type={"small"}
           />
-        </div>
+        </div> */}
 
         {/* <div className="flex items-center sm:justify-start justify-center mt-4 mb-5 md:mb-0">
           <Button
@@ -276,4 +283,4 @@ const MealDetails = () => {
   );
 };
 
-export default MealDetails;
+export default ScholarshipDetails;

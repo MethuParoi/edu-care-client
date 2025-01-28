@@ -8,7 +8,7 @@ import { set } from "react-hook-form";
 import ScholarshipCard from "../components/home/ScholarshipCard";
 
 const AllScholarship = () => {
-  const [filteredMeal, setFilteredMeal] = useState([]);
+  const [filteredUniversity, setFilteredUniversity] = useState([]);
   const [sortedMeal, setSortedMeal] = useState([]);
   const [sort, setSort] = useState("");
   const [search, setSearch] = useState("");
@@ -20,9 +20,9 @@ const AllScholarship = () => {
   const handleSearch = () => {
     setLoading(true);
     axiosSecure
-      .get("/meal/search-meals", { params: { query: search } })
+      .get("/university/search-university", { params: { query: search } })
       .then((res) => {
-        setFilteredMeal(res.data.meals);
+        setFilteredUniversity(res?.data?.universitys);
         setLoading(false);
       });
   };
@@ -52,7 +52,7 @@ const AllScholarship = () => {
   return (
     <div className="md:max-w-[780px] lg:max-w-[1000px] xl:max-w-[1200px] mx-auto pb-10 px-5">
       <p className=" text-primary dark:text-gray-400 text-3xl sm:text-5xl  font-semibold text-center nunitoSans-font border-b-2 border-primary dark:border-gray-400 w-[300px] sm:w-[350px] mx-auto mt-5 mb-10">
-        {filteredMeal?.length != 0 ? "Searched Meals" : "All Meals"}
+        {filteredUniversity?.length != 0 ? "Searched Meals" : "All Meals"}
       </p>
       {/* sorting and search */}
       <div className="flex items-center justify-center">
@@ -65,7 +65,7 @@ const AllScholarship = () => {
               setSearch(e.target.value);
               setSortedMeal([]);
             }}
-            placeholder="Search for meal"
+            placeholder="Search for university"
           />
           <button
             onClick={handleSearch}
@@ -77,8 +77,8 @@ const AllScholarship = () => {
       </div>
 
       {/* sorting buttons */}
-      <div className="flex justify-start mb-4">
-        {/* sort by category */}
+      {/* <div className="flex justify-start mb-4">
+        {/* sort by category }
         <div className="dropdown dropdown-bottom">
           <div
             tabIndex={0}
@@ -123,7 +123,7 @@ const AllScholarship = () => {
             </li>
           </ul>
         </div>
-        {/* sort by price */}
+        {/* sort by price }
         <div className="dropdown dropdown-bottom">
           <div
             tabIndex={0}
@@ -168,7 +168,7 @@ const AllScholarship = () => {
             </li>
           </ul>
         </div>
-      </div>
+      </div> */}
       {/* loading state */}
       {isLoading && (
         <div className="absolute top-1/2 left-1/2">
@@ -183,18 +183,16 @@ const AllScholarship = () => {
 
       {/* grid layout */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 mb-10">
-        {sortedMeal?.length != 0 &&
-          filteredMeal?.length === 0 &&
+        {/* {sortedMeal?.length != 0 &&
+          filteredUniversity?.length === 0 &&
           sortedMeal?.map((university, index) => (
             <ScholarshipCard key={index} university={university} />
-          ))}
-        {sortedMeal?.length === 0 &&
-          filteredMeal?.length != 0 &&
-          filteredMeal?.map((university, index) => (
+          ))} */}
+        {filteredUniversity?.length != 0 &&
+          filteredUniversity?.map((university, index) => (
             <ScholarshipCard key={index} university={university} />
           ))}
-        {sortedMeal?.length === 0 &&
-          filteredMeal?.length === 0 &&
+        {filteredUniversity?.length === 0 &&
           featuredUniversity?.map((university, index) => (
             <ScholarshipCard key={index} university={university} />
           ))}

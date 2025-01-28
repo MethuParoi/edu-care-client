@@ -76,23 +76,19 @@ const ApplyScholarship = () => {
 
     const [res1, res2] = await Promise.all([
       axiosSecure.post(`/user/insert-user-application/${user?.email}`, {
-        applicationData,
+        userApplication: applicationData,
       }),
       axiosSecure.post("/application/add-application", applicationData),
-    ]);
-
-    //   axiosSecure
-    //     .post("/application/add-meal", mealData)
-    //     .then((res) => {
-    //       if (res.status === 200) {
-    //         toast.success("Meal added successfully!");
-    //         setIsLoading(false);
-    //       }
-    //     })
-    //     .catch((err) => {
-    //       toast.error("An error occurred. Please try again.");
-    //       setIsLoading(false);
-    //     });
+    ]).then((res) => {
+      if (
+        res[0].data.acknowledged === true &&
+        res[1].data.acknowledged === true
+      ) {
+        setIsLoading(false);
+        toast.success("Application submitted successfully");
+        reset();
+      }
+    });
   };
 
   return (

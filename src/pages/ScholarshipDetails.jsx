@@ -19,7 +19,7 @@ import ReviewCard from "../components/scholarship-details/ReviewCard";
 
 const ScholarshipDetails = () => {
   const [review, setReview] = useState("");
-  const { user } = useContext(AuthContext);
+  const { user, setPackagePrice } = useContext(AuthContext);
   const axiosSecure = useAxiosSecure();
 
   const navigate = useNavigate();
@@ -37,39 +37,6 @@ const ScholarshipDetails = () => {
     error: errorReview,
     refetch: refetchReview,
   } = useFetchAllReview();
-
-  //disble like button if user already liked the scholarship
-  const [isLiked, setIsLiked] = useState(false);
-  useEffect(() => {
-    if (singleUser?.likedscholarships === 0) return;
-    if (singleUser?.likedscholarships?.includes(id)) {
-      setIsLiked(true);
-    }
-  }, [singleUser, id]);
-
-  //handle like button
-  const handleLike = async () => {
-    try {
-      const [res, resLikedscholarship] = await Promise.all([
-        axiosSecure.patch(`scholarship/increase-like/${id}`),
-        axiosSecure.post(`/user/insert-liked-scholarships/${user?.email}`, {
-          likedscholarships: [id],
-        }),
-      ]).then((res) => {
-        if (
-          res[0].data.modifiedCount === 1 &&
-          res[1].data.modifiedCount === 1
-        ) {
-          toast.success("scholarship liked successfully!");
-          refetch();
-          refetchLikedscholarship();
-        }
-      });
-      // Handle the responses if needed
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   //handle review post
   const handleReview = async () => {
@@ -113,30 +80,9 @@ const ScholarshipDetails = () => {
   };
 
   //handle scholarship Request
-  const handlescholarshipRequest = async () => {
-    console.log("name:", user?.displayName);
-    try {
-      const [res1, res2] = await Promise.all([
-        axiosSecure.post(`/user/insert-requested-scholarships/${user?.email}`, {
-          requestedscholarship: [{ id: id, status: "pending" }],
-        }),
-        axiosSecure.post(`/requested-scholarship/add-requested-scholarship`, {
-          id: id,
-          user: user?.email,
-          name: user?.displayName,
-          status: "pending",
-        }),
-      ]).then((res) => {
-        if (
-          res[0].data.acknowledged === true &&
-          res[1].data.result.acknowledged === true
-        ) {
-          toast.success("scholarship Requested successfully!");
-        }
-      });
-    } catch (error) {
-      console.log(error);
-    }
+  const handleScholarshipRequest = async () => {
+    setPackagePrice(universityDetails?.applicationFees);
+    navigate(`/checkout`);
   };
 
   if (isLoading) {
@@ -217,7 +163,7 @@ const ScholarshipDetails = () => {
         {/*  button */}
         <button
           //   disabled={singleUser?.plan === "Bronze"}
-          onClick={() => handlescholarshipRequest()}
+          onClick={() => handleScholarshipRequest()}
           className="cursor-pointer w-48  h-12 bg-red-300 hover:bg-red-400 rounded-lg text-gray-100 font-medium"
         >
           Request scholarship

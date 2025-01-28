@@ -21,7 +21,7 @@ import AllScholarship from "../pages/AllScholarship";
 // import ServeMeal from "../pages/dashboard/admin/ServeMeal";
 // import UpcomingMeal from "../pages/dashboard/admin/UpcomingMeal";
 // import Meals from "../pages/Meals";
-// import Checkout from "../pages/Checkout";
+import Checkout from "../pages/Checkout";
 // import UpcomingMeals from "../pages/UpcomingMeals";
 // import UpcomingMealDetails from "../pages/UpcomingMealDetails";
 
@@ -59,14 +59,14 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      // {
-      //   path: "/checkout/:packageName",
-      //   element: (
-      //     <PrivateRoute>
-      //       <Checkout />
-      //     </PrivateRoute>
-      //   ),
-      // },
+      {
+        path: "/checkout",
+        element: (
+          <PrivateRoute>
+            <Checkout />
+          </PrivateRoute>
+        ),
+      },
       // {
       //   path: "/add-food",
       //   element: (

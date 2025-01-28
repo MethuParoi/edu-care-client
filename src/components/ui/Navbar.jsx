@@ -101,7 +101,7 @@ function Navbar({ toggleTheme, currentTheme }) {
             </li>
             <li>
               <button
-                onClick={() => navigate("/user-dashboard")}
+                onClick={() => navigate("/dashboard/profile")}
                 className="text-neutral"
               >
                 User Dashboard
@@ -109,7 +109,7 @@ function Navbar({ toggleTheme, currentTheme }) {
             </li>
             <li>
               <button
-                onClick={() => navigate("/admin-dashboard")}
+                onClick={() => navigate("/dashboard/profile")}
                 className="text-neutral"
               >
                 Admin Dashboard
@@ -166,9 +166,9 @@ function Navbar({ toggleTheme, currentTheme }) {
           </li>
           <li>
             <button
-              onClick={() => navigate("/user-dashboard")}
+              onClick={() => navigate("/dashboard/profile")}
               className={`text-neutral ${
-                location.pathname === "/user-dashboard" && "active"
+                location.pathname === "/dashboard/profile" && "active"
               }`}
             >
               User Dashboard
@@ -176,9 +176,9 @@ function Navbar({ toggleTheme, currentTheme }) {
           </li>
           <li>
             <button
-              onClick={() => navigate("/admin-dashboard")}
+              onClick={() => navigate("/dashboard/profile")}
               className={`text-neutral ${
-                location.pathname === "/admin-dashboard" && "active"
+                location.pathname === "/dashboard/profile" && "active"
               }`}
             >
               Admin Dashboard

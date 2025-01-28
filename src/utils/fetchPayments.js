@@ -27,3 +27,29 @@ export const useFetchAllPayment = () => {
 
   return { isLoading, allPayment, error, refetch };
 };
+
+//application for single user
+export const useFetchMyApplication = () => {
+  const { user } = useContext(AuthContext);
+  const axiosSecure = useAxiosSecure();
+
+  const {
+    isLoading,
+    data: myApplication, // Initialize allReview as an empty array
+    error,
+    refetch,
+  } = useQuery({
+    queryKey: ["myApplication"],
+    queryFn: async () => {
+      const response = await axiosSecure.get(
+        `/user/get-my-application/${user.email}`
+      );
+      if (response.status !== 200) {
+        throw new Error("Network response was not ok");
+      }
+      return response.data;
+    },
+  });
+
+  return { isLoading, myApplication, error, refetch };
+};

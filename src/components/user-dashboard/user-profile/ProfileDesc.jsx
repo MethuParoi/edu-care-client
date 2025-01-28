@@ -1,32 +1,15 @@
 import Button from "../../ui/Button";
 
-import bronze from "../../../assets/badge/bronge.png";
-import silver from "../../../assets/badge/silver.png";
-import gold from "../../../assets/badge/gold.png";
-import platinum from "../../../assets/badge/platinum.png";
 import { useEffect, useState } from "react";
 
-const ProfileDesc = ({ name, mail, badge, role, userMealsCount }) => {
-  const [badgeImage, setBadgeImage] = useState("");
-  useEffect(() => {
-    if (badge === "Bronze") {
-      setBadgeImage(bronze);
-    } else if (badge === "Silver") {
-      setBadgeImage(silver);
-    } else if (badge === "Gold") {
-      setBadgeImage(gold);
-    } else if (badge === "Platinum") {
-      setBadgeImage(platinum);
-    }
-  }, [badge]);
+const ProfileDesc = ({ name, mail, badge, role }) => {
   return (
     <div className="pl-64 sm:pl-56 font-semibold text-red-300">
       {/* badge */}
-      {role != "admin" && (
+      {role != "user" && (
         <div className="mb-4 flex items-center justify-start gap-x-5">
-          <img className="w-24" src={badgeImage} alt="" />
           <h2 className="text-3xl font-semibold text-red-500 bg-teal-400 p-2 rounded-lg">
-            {badge}
+            {role}
           </h2>
         </div>
       )}

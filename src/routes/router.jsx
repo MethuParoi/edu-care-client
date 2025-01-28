@@ -8,11 +8,11 @@ import Register from "../pages/Register";
 import NotFound from "../pages/NotFound";
 import ScholarshipDetails from "../pages/ScholarshipDetails";
 import AllScholarship from "../pages/AllScholarship";
-// import Dashboard from "../layouts/Dashboard";
+import Dashboard from "../layouts/Dashboard";
 // import MyReview from "../pages/dashboard/user/MyReview";
 // import PaymentHistory from "../pages/dashboard/user/PaymentHistory";
 // import RequestedMeal from "../pages/dashboard/user/RequestedMeal.";
-// import UserProfile from "../pages/dashboard/user/UserProfile";
+import UserProfile from "../pages/dashboard/user/UserProfile";
 // import AddMeal from "../pages/dashboard/admin/AddMeal";
 // import AdminProfile from "../pages/dashboard/admin/AdminProfile";
 // import AllMeal from "../pages/dashboard/admin/AllMeal";
@@ -23,6 +23,7 @@ import AllScholarship from "../pages/AllScholarship";
 // import Meals from "../pages/Meals";
 import Checkout from "../pages/Checkout";
 import ApplyScholarship from "../pages/ApplyScholarship";
+import MyApplication from "../pages/dashboard/user/MyApplication";
 // import UpcomingMeals from "../pages/UpcomingMeals";
 // import UpcomingMealDetails from "../pages/UpcomingMealDetails";
 
@@ -79,41 +80,41 @@ const router = createBrowserRouter([
     ],
   },
   // user dashboard routes
-  // {
-  //   path: "/dashboard",
-  //   element: <Dashboard />,
-  //   children: [
-  //     {
-  //       path: "my-reviews",
-  //       element: <MyReview />,
-  //     },
+  {
+    path: "/dashboard",
+    element: <Dashboard />,
+    children: [
+      //     {
+      //       path: "my-reviews",
+      //       element: <MyReview />,
+      //     },
 
-  //     {
-  //       path: "payment-history",
-  //       element: (
-  //         // <PrivateRoute>
-  //         <PaymentHistory />
-  //         // </PrivateRoute>
-  //       ),
-  //     },
-  //     {
-  //       path: "requested-meals",
-  //       element: (
-  //         // <PrivateRoute>
-  //         <RequestedMeal />
-  //         // </PrivateRoute>
-  //       ),
-  //     },
-  //     {
-  //       path: "profile",
-  //       element: (
-  //         // <PrivateRoute>
-  //         <UserProfile />
-  //         // </PrivateRoute>
-  //       ),
-  //     },
-  //   ],
-  // },
+      {
+        path: "my-application",
+        element: (
+          // <PrivateRoute>
+          <MyApplication />
+          // </PrivateRoute>
+        ),
+      },
+      //     {
+      //       path: "requested-meals",
+      //       element: (
+      //         // <PrivateRoute>
+      //         <RequestedMeal />
+      //         // </PrivateRoute>
+      //       ),
+      //     },
+      {
+        path: "profile",
+        element: (
+          // <PrivateRoute>
+          <UserProfile />
+          // </PrivateRoute>
+        ),
+      },
+    ],
+  },
 
   // admin dashboard routes
   //TODO: add admin route checker

@@ -9,22 +9,22 @@ import { PiBowlFood } from "react-icons/pi";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { AuthContext } from "../../provider/AuthProvider";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { FaGoogleScholar } from "react-icons/fa6";
+import { TbFriends } from "react-icons/tb";
 
 const Drawer = () => {
   //fetch is admin from the server
+  const [isAdmin, setIsAdmin] = useState(false);
   const { user } = useContext(AuthContext);
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
 
   useEffect(() => {
     axiosSecure.get(`/user/check-admin/${user?.email}`).then((res) => {
-      console.log(res);
-      if (res.data.admin === true) {
-        setIsAdmin(true);
-      }
+      // console.log(res);
+      setIsAdmin(res?.data?.role);
     });
   }, [axiosSecure, user?.email]);
-  const [isAdmin, setIsAdmin] = useState(false);
   const location = useLocation();
 
   const getLinkClass = (path) => {
@@ -58,11 +58,11 @@ const Drawer = () => {
             >
               <img className="w-32 h-28" src={logo} alt="logo" />
               <p className="text-3xl mt-[-25px] mb-5 text-accentHover">
-                Cloud Hostel
+                EduCare
               </p>
             </li>
           </>
-          {isAdmin ? (
+          {isAdmin === "admin" ? (
             // admin menubar
             <>
               <li
@@ -79,58 +79,52 @@ const Drawer = () => {
                 className={getLinkClass("/dashboard/manage-users")}
               >
                 <div className="flex items-center justify-start gap-x-4">
-                  <FaUserFriends className="text-red-300 text-3xl" />
+                  <TbFriends className="text-red-300 text-3xl" />
                   Manage Users
                 </div>
               </li>
               <li
-                onClick={() => navigate("/dashboard/add-meal")}
-                className={getLinkClass("/dashboard/add-meal")}
+                onClick={() => navigate("/dashboard/manage-scholarship")}
+                className={getLinkClass("/dashboard/manage-scholarship")}
+              >
+                <div className="flex items-center justify-start gap-x-4">
+                  <FaGoogleScholar className="text-red-300 text-3xl" />
+                  Manage Scholarships
+                </div>
+              </li>
+              <li
+                onClick={() => navigate("/dashboard/add-scholarship")}
+                className={getLinkClass("/dashboard/add-scholarship")}
               >
                 <div className="flex items-center justify-start gap-x-4">
                   <IoIosAddCircleOutline className="text-red-300 text-3xl" />
-                  Add Meal
+                  Add Scholarship
                 </div>
               </li>
               <li
-                onClick={() => navigate("/dashboard/all-meals")}
-                className={getLinkClass("/dashboard/all-meals")}
+                onClick={() =>
+                  navigate("/dashboard/ manage-applied-applications")
+                }
+                className={getLinkClass(
+                  "/dashboard/ manage-applied-applications"
+                )}
               >
                 <div className="flex items-center justify-start gap-x-4">
-                  <MdFastfood className="text-red-300 text-3xl" />
-                  All Meals
+                  <FaGoogleScholar className="text-red-300 text-3xl" />
+                  Manage Applied Applications
                 </div>
               </li>
               <li
-                onClick={() => navigate("/dashboard/all-reviews")}
-                className={getLinkClass("/dashboard/all-reviews")}
+                onClick={() => navigate("/dashboard/ manage-reviews")}
+                className={getLinkClass("/dashboard/ manage-reviews")}
               >
                 <div className="flex items-center justify-start gap-x-4">
-                  <MdOutlineRateReview className="text-red-300 text-3xl" />
-                  All Reviews
-                </div>
-              </li>
-              <li
-                onClick={() => navigate("/dashboard/serve-meals")}
-                className={getLinkClass("/dashboard/serve-meals")}
-              >
-                <div className="flex items-center justify-start gap-x-4">
-                  <MdFoodBank className="text-red-300 text-3xl" />
-                  Serve Meals
-                </div>
-              </li>
-              <li
-                onClick={() => navigate("/dashboard/upcoming-meals")}
-                className={getLinkClass("/dashboard/upcoming-meals")}
-              >
-                <div className="flex items-center justify-start gap-x-4">
-                  <PiBowlFood className="text-red-300 text-3xl" />
-                  Upcoming Meals
+                  <MdOutlineRateReview className="text-red-300 text-3xl" />A
+                  Manage Reviews
                 </div>
               </li>
             </>
-          ) : (
-            // user menubar
+          ) : isAdmin === "moderator" ? (
             <>
               <li
                 onClick={() => navigate("/dashboard/profile")}
@@ -142,12 +136,60 @@ const Drawer = () => {
                 </div>
               </li>
               <li
-                onClick={() => navigate("/dashboard/requested-meals")}
-                className={getLinkClass("/dashboard/requested-meals")}
+                onClick={() => navigate("/dashboard/manage-users")}
+                className={getLinkClass("/dashboard/manage-users")}
               >
                 <div className="flex items-center justify-start gap-x-4">
-                  <MdFastfood className="text-red-300 text-3xl" />
-                  Requested Meals
+                  <FaGoogleScholar className="text-red-300 text-3xl" />
+                  Manage Scholarships
+                </div>
+              </li>
+              <li
+                onClick={() => navigate("/dashboard/add-meal")}
+                className={getLinkClass("/dashboard/add-meal")}
+              >
+                <div className="flex items-center justify-start gap-x-4">
+                  <IoIosAddCircleOutline className="text-red-300 text-3xl" />
+                  Add Scholarship
+                </div>
+              </li>
+              <li
+                onClick={() => navigate("/dashboard/all-meals")}
+                className={getLinkClass("/dashboard/all-meals")}
+              >
+                <div className="flex items-center justify-start gap-x-4">
+                  <FaGoogleScholar className="text-red-300 text-3xl" />
+                  All Applied Scholarships
+                </div>
+              </li>
+              <li
+                onClick={() => navigate("/dashboard/all-reviews")}
+                className={getLinkClass("/dashboard/all-reviews")}
+              >
+                <div className="flex items-center justify-start gap-x-4">
+                  <MdOutlineRateReview className="text-red-300 text-3xl" />
+                  All Reviews
+                </div>
+              </li>
+            </>
+          ) : (
+            <>
+              <li
+                onClick={() => navigate("/dashboard/profile")}
+                className={getLinkClass("/dashboard/profile")}
+              >
+                <div className="flex items-center justify-start gap-x-4">
+                  <CgProfile className="text-red-300 text-3xl" />
+                  My Profile
+                </div>
+              </li>
+              <li
+                onClick={() => navigate("/dashboard/my-application")}
+                className={getLinkClass("/dashboard/my-application")}
+              >
+                <div className="flex items-center justify-start gap-x-4">
+                  <FaGoogleScholar className="text-red-300 text-3xl" />
+                  My Application
                 </div>
               </li>
               <li
@@ -159,7 +201,7 @@ const Drawer = () => {
                   My Reviews
                 </div>
               </li>
-              <li
+              {/* <li
                 onClick={() => navigate("/dashboard/payment-history")}
                 className={getLinkClass("/dashboard/payment-history")}
               >
@@ -167,7 +209,7 @@ const Drawer = () => {
                   <FaHistory className="text-red-300 text-3xl" />
                   Payment History
                 </div>
-              </li>
+              </li> */}
             </>
           )}
         </ul>

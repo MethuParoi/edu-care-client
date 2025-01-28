@@ -13,6 +13,8 @@ import { MdOutlineRateReview } from "react-icons/md";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import { toast } from "react-toastify";
 import { useFetchSingleUser } from "../utils/fetchUsers";
+import { useFetchAllReview } from "../utils/fetchReview";
+import ReviewCard from "../components/scholarship-details/ReviewCard";
 // import RequestModal from "../components/food-details/RequestModal";
 
 const ScholarshipDetails = () => {
@@ -28,6 +30,13 @@ const ScholarshipDetails = () => {
   const { singleUser, refetch: refetchLikedscholarship } = useFetchSingleUser(
     user?.email
   );
+  //fetch all reviews
+  const {
+    isLoading: isLoadingReview,
+    allReview,
+    error: errorReview,
+    refetch: refetchReview,
+  } = useFetchAllReview();
 
   //disble like button if user already liked the scholarship
   const [isLiked, setIsLiked] = useState(false);
@@ -67,11 +76,11 @@ const ScholarshipDetails = () => {
     try {
       const [res, resLikedscholarship, resReviewedscholarship] =
         await Promise.all([
-          axiosSecure.patch(`scholarship/increase-review/${id}`),
+          //   axiosSecure.patch(`scholarship/increase-review/${id}`),
           axiosSecure.post(
             `/user/insert-reviewed-scholarships/${user?.email}`,
             {
-              reviewedscholarship: [{ id: id, review: review }],
+              reviewedScholarship: [{ id: id, review: review }],
             }
           ),
           axiosSecure.post(`/review/add-review/678ca678c4c2ef19970bc09f`, {
@@ -86,11 +95,11 @@ const ScholarshipDetails = () => {
         ]).then((res) => {
           if (
             res[0].data.modifiedCount === 1 &&
-            res[1].data.modifiedCount === 1 &&
-            res[2].data.acknowledged === true
+            res[1].data.acknowledged === true
           ) {
             toast.success("Review posted successfully!");
             refetch();
+            refetchReview();
             setReview("");
           }
         });
@@ -234,7 +243,7 @@ const ScholarshipDetails = () => {
         </div> */}
 
         {/* post review section */}
-        {/* <div className="flex flex-col items-start gap-y-2">
+        <div className="flex flex-col items-start gap-y-2">
           <input
             type="text"
             onChange={(e) => setReview(e.target.value)}
@@ -246,39 +255,24 @@ const ScholarshipDetails = () => {
             label={"Post Review"}
             type={"small"}
           />
-        </div> */}
+        </div>
 
-        {/* <div className="flex items-center sm:justify-start justify-center mt-4 mb-5 md:mb-0">
-          <Button
-            onClick={() => {
-              if (user?.email) {
-                document.getElementById("req_food_modal").showModal();
-              } else {
-                navigate("/login");
-              }
-            }}
-            label={"Request Food"}
-            type={"standard"}
-          />
-        </div> */}
-
-        {/* donator details */}
-        {/* <div className="flex items-center gap-x-4 mb-10 md:mt-5">
-          <h1 className="text-xl font-semibold">Donated By:</h1>
-          <div className="flex items-center gap-x-2">
-            <img
-              className="w-14 h-14 rounded-full border-2 border-secondary"
-              src={details?.donator_image}
-              alt="user"
-            />
-            <p className="text-gray-600 text-lg font-medium">
-              {details?.donator_name}
-            </p>
-          </div>
-        </div>*/}
+        {/* reviews */}
+        {allReview.map((reviewObj) =>
+          reviewObj.reviews.map((nestedReview, index) =>
+            nestedReview.review.map((singleReview) => (
+              <ReviewCard
+                key={singleReview.meal_id + index}
+                review={singleReview.review}
+                userMail={singleReview.user_id}
+                scholarshipId={singleReview.scholarship_id}
+                id={id}
+                refetch={refetch}
+              />
+            ))
+          )
+        )}
       </div>
-
-      {/* <RequestModal foodDetail={details} /> */}
     </div>
   );
 };

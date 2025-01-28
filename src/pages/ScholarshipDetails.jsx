@@ -19,7 +19,8 @@ import ReviewCard from "../components/scholarship-details/ReviewCard";
 
 const ScholarshipDetails = () => {
   const [review, setReview] = useState("");
-  const { user, setPackagePrice } = useContext(AuthContext);
+  const { user, setPackagePrice, setScholarshipDetails } =
+    useContext(AuthContext);
   const axiosSecure = useAxiosSecure();
 
   const navigate = useNavigate();
@@ -82,6 +83,7 @@ const ScholarshipDetails = () => {
   //handle scholarship Request
   const handleScholarshipRequest = async () => {
     setPackagePrice(universityDetails?.applicationFees);
+    setScholarshipDetails(universityDetails);
     navigate(`/checkout`);
   };
 
@@ -164,9 +166,9 @@ const ScholarshipDetails = () => {
         <button
           //   disabled={singleUser?.plan === "Bronze"}
           onClick={() => handleScholarshipRequest()}
-          className="cursor-pointer w-48  h-12 bg-red-300 hover:bg-red-400 rounded-lg text-gray-100 font-medium"
+          className="cursor-pointer w-48  h-12 bg-red-400 hover:bg-red-500 rounded-lg text-gray-100 font-medium"
         >
-          Request scholarship
+          Apply Scholarship
         </button>
         {/* ingredients */}
         {/* <div className="mb-4">

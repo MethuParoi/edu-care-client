@@ -89,9 +89,9 @@ const CheckoutForm = ({ id, email }) => {
         console.log("res2:", res2.data);
 
         //after successful payment, redirect to payment history page
-        if (res.data.modifiedCount > 0 && res2.data.modifiedCount > 0) {
+        if (res.data.acknowledged === true && res2.data.acknowledged === true) {
           toast.success("Payment Successful");
-          navigate("/dashboard/payment-history");
+          navigate("/apply-scholarship");
           console.log("Payment completed successfully");
         } else {
           setErrorMessage("Payment not completed. Please try again.");

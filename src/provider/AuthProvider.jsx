@@ -20,6 +20,7 @@ function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [packagePrice, setPackagePrice] = useState(0);
+  const [scholarshipDetails, setScholarshipDetails] = useState({});
 
   const createUser = (email, password) => {
     setLoading(true);
@@ -119,6 +120,8 @@ function AuthProvider({ children }) {
     loading,
     filteredMovies,
     setFilteredMovies,
+    scholarshipDetails,
+    setScholarshipDetails,
     createUser,
     loginUser,
     logoutUser,

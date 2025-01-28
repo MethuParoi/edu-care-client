@@ -22,6 +22,7 @@ import AllScholarship from "../pages/AllScholarship";
 // import UpcomingMeal from "../pages/dashboard/admin/UpcomingMeal";
 // import Meals from "../pages/Meals";
 import Checkout from "../pages/Checkout";
+import ApplyScholarship from "../pages/ApplyScholarship";
 // import UpcomingMeals from "../pages/UpcomingMeals";
 // import UpcomingMealDetails from "../pages/UpcomingMealDetails";
 
@@ -67,14 +68,14 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      // {
-      //   path: "/add-food",
-      //   element: (
-      //     <PrivateRoute>
-      //       <AddFood />
-      //     </PrivateRoute>
-      //   ),
-      // },
+      {
+        path: "/apply-scholarship",
+        element: (
+          <PrivateRoute>
+            <ApplyScholarship />
+          </PrivateRoute>
+        ),
+      },
     ],
   },
   // user dashboard routes
@@ -121,9 +122,13 @@ const router = createBrowserRouter([
   //     element: <Dashboard />,
   //     children: [
   //       {
-  //         path: "add-meal",
-  //         element: <AddMeal />,
-  //       },
+  //   path: "add-scholarship",
+  //   element: (
+  //     <PrivateRoute>
+  //       <AddFood />
+  //     </PrivateRoute>
+  //   ),
+  // },
 
   //       {
   //         path: "profile",

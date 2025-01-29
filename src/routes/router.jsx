@@ -24,6 +24,7 @@ import ManageUser from "../pages/dashboard/admin/ManageUser";
 import Checkout from "../pages/Checkout";
 import ApplyScholarship from "../pages/ApplyScholarship";
 import MyApplication from "../pages/dashboard/user/MyApplication";
+import ManageScholarship from "../pages/dashboard/admin/ManageScholarship";
 // import UpcomingMeals from "../pages/UpcomingMeals";
 // import UpcomingMealDetails from "../pages/UpcomingMealDetails";
 
@@ -126,6 +127,10 @@ const router = createBrowserRouter([
         path: "manage-users",
         element: <ManageUser />,
       },
+      {
+        path: "manage-scholarship",
+        element: <ManageScholarship />,
+      },
       //       {
       //   path: "add-scholarship",
       //   element: (
@@ -143,10 +148,7 @@ const router = createBrowserRouter([
       //           // </AdminRoute>
       //         ),
       //       },
-      //       {
-      //         path: "all-meals",
-      //         element: <AllMeal />,
-      //       },
+
       //       {
       //         path: "all-reviews",
       //         element: <AllReview />,

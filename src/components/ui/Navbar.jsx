@@ -6,13 +6,23 @@ import { FaMoon } from "react-icons/fa6";
 import { MdWbSunny } from "react-icons/md";
 import logo from "../../assets/logo/logo.png";
 import { IoNotificationsCircle } from "react-icons/io5";
+import { useFetchAllUser } from "../../utils/fetchUsers";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 function Navbar({ toggleTheme, currentTheme }) {
   const location = useLocation();
+  const { user, logoutUser } = useContext(AuthContext);
+  const [Role, setRole] = useState("");
+  const axiosSecure = useAxiosSecure();
+  useEffect(() => {
+    axiosSecure.get(`/user/check-admin/${user?.email}`).then((res) => {
+      // console.log(res?.data?.isAdmin?.role);
+      setRole(res?.data?.isAdmin?.role);
+    });
+  }, [axiosSecure, user?.email]);
 
   const [showUserName, setShowUserName] = useState(false);
   const navigate = useNavigate();
-  const { user, logoutUser } = useContext(AuthContext);
 
   const handleLogout = async () => {
     if (user) {
@@ -107,14 +117,16 @@ function Navbar({ toggleTheme, currentTheme }) {
                 User Dashboard
               </button>
             </li>
-            <li>
-              <button
-                onClick={() => navigate("/dashboard/profile")}
-                className="text-neutral"
-              >
-                Admin Dashboard
-              </button>
-            </li>
+            {Role === "admin" && (
+              <li>
+                <button
+                  onClick={() => navigate("/dashboard/profile")}
+                  className="text-neutral"
+                >
+                  Admin Dashboard
+                </button>
+              </li>
+            )}
             {/* <li>
               <button
                 onClick={() => navigate("/manage-food")}
@@ -174,16 +186,18 @@ function Navbar({ toggleTheme, currentTheme }) {
               User Dashboard
             </button>
           </li>
-          <li>
-            <button
-              onClick={() => navigate("/dashboard/profile")}
-              className={`text-neutral ${
-                location.pathname === "/dashboard/profile" && "active"
-              }`}
-            >
-              Admin Dashboard
-            </button>
-          </li>
+          {Role === "admin" && (
+            <li>
+              <button
+                onClick={() => navigate("/dashboard/profile")}
+                className={`text-neutral ${
+                  location.pathname === "/dashboard/profile" && "active"
+                }`}
+              >
+                Admin Dashboard
+              </button>
+            </li>
+          )}
           {/* <li>
             <button
               onClick={() => navigate("/manage-food")}

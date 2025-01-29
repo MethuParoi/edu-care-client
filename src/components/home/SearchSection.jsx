@@ -14,7 +14,7 @@ const SearchSection = () => {
       </div>
 
       <button
-        onClick={() => navigate("/all-meals")}
+        onClick={() => navigate("/all-scholarship")}
         className="h-full w-[120px] lg:w-[150px] bg-red-400 hover:bg-red-500 rounded-[1.8rem] text-white font-semibold"
       >
         Search Now

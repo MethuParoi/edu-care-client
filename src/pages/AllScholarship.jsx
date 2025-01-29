@@ -52,7 +52,9 @@ const AllScholarship = () => {
   return (
     <div className="md:max-w-[780px] lg:max-w-[1000px] xl:max-w-[1200px] mx-auto pb-10 px-5">
       <p className=" text-primary dark:text-gray-400 text-3xl sm:text-5xl  font-semibold text-center nunitoSans-font border-b-2 border-primary dark:border-gray-400 w-[300px] sm:w-[350px] mx-auto mt-5 mb-10">
-        {filteredUniversity?.length != 0 ? "Searched Meals" : "All Meals"}
+        {filteredUniversity?.length != 0
+          ? "Searched Scholarship"
+          : "All Scholarship"}
       </p>
       {/* sorting and search */}
       <div className="flex items-center justify-center">
@@ -177,7 +179,7 @@ const AllScholarship = () => {
       )}
       {!isLoading && featuredUniversity?.length === 0 && (
         <h2 className="text-3xl font-semibold text-center text-gray-600 mt-16 mb-32">
-          No Meal found!
+          No Scholarship found!
         </h2>
       )}
 

@@ -25,6 +25,9 @@ import Checkout from "../pages/Checkout";
 import ApplyScholarship from "../pages/ApplyScholarship";
 import MyApplication from "../pages/dashboard/user/MyApplication";
 import ManageScholarship from "../pages/dashboard/admin/ManageScholarship";
+import AddScholarship from "../pages/dashboard/admin/AddScholarship";
+import ManageAppliedApplicationRow from "../components/admin-dashboard/manage-application/ManageAppliedApplicationRow";
+import ManageAppliedApplications from "../pages/dashboard/admin/ManageAppliedApplications";
 // import UpcomingMeals from "../pages/UpcomingMeals";
 // import UpcomingMealDetails from "../pages/UpcomingMealDetails";
 
@@ -131,23 +134,23 @@ const router = createBrowserRouter([
         path: "manage-scholarship",
         element: <ManageScholarship />,
       },
-      //       {
-      //   path: "add-scholarship",
-      //   element: (
-      //     <PrivateRoute>
-      //       <AddFood />
-      //     </PrivateRoute>
-      //   ),
-      // },
+      {
+        path: "add-scholarship",
+        element: (
+          <PrivateRoute>
+            <AddScholarship />
+          </PrivateRoute>
+        ),
+      },
 
-      //       {
-      //         path: "profile",
-      //         element: (
-      //           // <AdminRoute>
-      //           <AdminProfile />
-      //           // </AdminRoute>
-      //         ),
-      //       },
+      {
+        path: "manage-applied-applications",
+        element: (
+          // <AdminRoute>
+          <ManageAppliedApplications />
+          // </AdminRoute>
+        ),
+      },
 
       //       {
       //         path: "all-reviews",

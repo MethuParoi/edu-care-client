@@ -103,10 +103,10 @@ const Drawer = () => {
               </li>
               <li
                 onClick={() =>
-                  navigate("/dashboard/ manage-applied-applications")
+                  navigate("/dashboard/manage-applied-applications")
                 }
                 className={getLinkClass(
-                  "/dashboard/ manage-applied-applications"
+                  "/dashboard/manage-applied-applications"
                 )}
               >
                 <div className="flex items-center justify-start gap-x-4">
@@ -115,11 +115,11 @@ const Drawer = () => {
                 </div>
               </li>
               <li
-                onClick={() => navigate("/dashboard/ manage-reviews")}
-                className={getLinkClass("/dashboard/ manage-reviews")}
+                onClick={() => navigate("/dashboard/manage-reviews")}
+                className={getLinkClass("/dashboard/manage-reviews")}
               >
                 <div className="flex items-center justify-start gap-x-4">
-                  <MdOutlineRateReview className="text-red-300 text-3xl" />A
+                  <MdOutlineRateReview className="text-red-300 text-3xl" />
                   Manage Reviews
                 </div>
               </li>
@@ -154,8 +154,12 @@ const Drawer = () => {
                 </div>
               </li>
               <li
-                onClick={() => navigate("/dashboard/all-meals")}
-                className={getLinkClass("/dashboard/all-meals")}
+                onClick={() =>
+                  navigate("/dashboard/manage-applied-applications")
+                }
+                className={getLinkClass(
+                  "/dashboard/manage-applied-applications"
+                )}
               >
                 <div className="flex items-center justify-start gap-x-4">
                   <FaGoogleScholar className="text-red-300 text-3xl" />

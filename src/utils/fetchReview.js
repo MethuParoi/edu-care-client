@@ -47,3 +47,30 @@ export const useFetchReview = () => {
 
   return { isLoading, Review, error, refetch };
 };
+
+//fetch application
+export const useFetchApplication = () => {
+  const { user } = useContext(AuthContext);
+  const axiosSecure = useAxiosSecure();
+
+  const {
+    isLoading,
+    data: Application = [], // Initialize allReview as an empty array
+    error,
+    refetch,
+  } = useQuery({
+    queryKey: ["Application"],
+    queryFn: async () => {
+      const response = await axiosSecure.get(
+        `/application/get-all-applications`
+      );
+      if (response.status !== 200) {
+        throw new Error("Network response was not ok");
+      }
+      return response.data;
+    },
+  });
+
+  return { isLoading, Application, error, refetch };
+};
+

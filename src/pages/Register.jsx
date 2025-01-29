@@ -51,12 +51,13 @@ const Register = () => {
 
   const onSubmit = (data) => {
     // Password must be at least 6 characters long and include at least one uppercase letter, one lowercase letter,
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+    // const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{6,}$/;
 
     // Validate password
     if (!passwordRegex.test(data.password)) {
       toast.error(
-        "Password must be at least 6 characters long and include at least one uppercase letter, one lowercase letter."
+        "Password must be at least 6 characters long and include at least one uppercase letter, one lowercase letter, one special character."
       );
       return;
     }
@@ -202,8 +203,9 @@ const Register = () => {
                   message: "Password cannot exceed 20 characters",
                 },
                 pattern: {
-                  value: /^(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{6,}$/,
-                  message: "must contain one uppercase and lowercase letter",
+                  value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{6,}$/,
+                  message:
+                    "must contain one uppercase and lowercase letter, one special character",
                 },
               })}
               autoComplete="new-password"

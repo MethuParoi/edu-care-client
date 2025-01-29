@@ -21,8 +21,8 @@ const Drawer = () => {
 
   useEffect(() => {
     axiosSecure.get(`/user/check-admin/${user?.email}`).then((res) => {
-      // console.log(res);
-      setIsAdmin(res?.data?.role);
+      console.log(res?.data?.isAdmin?.role);
+      setIsAdmin(res?.data?.isAdmin?.role);
     });
   }, [axiosSecure, user?.email]);
   const location = useLocation();

@@ -15,16 +15,16 @@ const ProfileDesc = ({ name, mail, badge, role }) => {
       )}
 
       <div className="pb-3 sm:border-b-2 border-gray-600">
-        <h1 className="text-md sm:text-xl lg:text-3xl ">{`User Name: ${name}`}</h1>
+        <h1 className="text-md sm:text-xl lg:text-3xl ">{`Name: ${name}`}</h1>
       </div>
 
       <div className="pt-5 pb-3 sm:border-b-2 border-gray-600">
-        <h1 className="text-md sm:text-xl lg:text-3xl">{`User Email: ${mail}`}</h1>
+        <h1 className="text-md sm:text-xl lg:text-3xl">{`Email: ${mail}`}</h1>
       </div>
 
-      {role === "admin" && (
+      {role != "user" && (
         <div className="pt-5 pb-3 sm:border-b-2 border-gray-600">
-          <h1 className="text-md sm:text-xl lg:text-3xl">{`Meal added: ${userMealsCount}`}</h1>
+          <h1 className="text-md sm:text-xl lg:text-3xl">{`Role: ${role}`}</h1>
         </div>
       )}
     </div>

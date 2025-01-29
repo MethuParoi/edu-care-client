@@ -17,7 +17,7 @@ import UserProfile from "../pages/dashboard/user/UserProfile";
 // import AdminProfile from "../pages/dashboard/admin/AdminProfile";
 // import AllMeal from "../pages/dashboard/admin/AllMeal";
 // import AllReview from "../pages/dashboard/admin/AllReview";
-// import ManageUser from "../pages/dashboard/admin/ManageUser";
+import ManageUser from "../pages/dashboard/admin/ManageUser";
 // import ServeMeal from "../pages/dashboard/admin/ServeMeal";
 // import UpcomingMeal from "../pages/dashboard/admin/UpcomingMeal";
 // import Meals from "../pages/Meals";
@@ -118,49 +118,50 @@ const router = createBrowserRouter([
 
   // admin dashboard routes
   //TODO: add admin route checker
-  //   {
-  //     path: "/dashboard",
-  //     element: <Dashboard />,
-  //     children: [
-  //       {
-  //   path: "add-scholarship",
-  //   element: (
-  //     <PrivateRoute>
-  //       <AddFood />
-  //     </PrivateRoute>
-  //   ),
-  // },
+  {
+    path: "/dashboard",
+    element: <Dashboard />,
+    children: [
+      {
+        path: "manage-users",
+        element: <ManageUser />,
+      },
+      //       {
+      //   path: "add-scholarship",
+      //   element: (
+      //     <PrivateRoute>
+      //       <AddFood />
+      //     </PrivateRoute>
+      //   ),
+      // },
 
-  //       {
-  //         path: "profile",
-  //         element: (
-  //           // <AdminRoute>
-  //           <AdminProfile />
-  //           // </AdminRoute>
-  //         ),
-  //       },
-  //       {
-  //         path: "all-meals",
-  //         element: <AllMeal />,
-  //       },
-  //       {
-  //         path: "all-reviews",
-  //         element: <AllReview />,
-  //       },
-  //       {
-  //         path: "manage-users",
-  //         element: <ManageUser />,
-  //       },
-  //       {
-  //         path: "serve-meals",
-  //         element: <ServeMeal />,
-  //       },
-  //       {
-  //         path: "upcoming-meals",
-  //         element: <UpcomingMeal />,
-  //       },
-  //     ],
-  //   },
+      //       {
+      //         path: "profile",
+      //         element: (
+      //           // <AdminRoute>
+      //           <AdminProfile />
+      //           // </AdminRoute>
+      //         ),
+      //       },
+      //       {
+      //         path: "all-meals",
+      //         element: <AllMeal />,
+      //       },
+      //       {
+      //         path: "all-reviews",
+      //         element: <AllReview />,
+      //       },
+
+      //       {
+      //         path: "serve-meals",
+      //         element: <ServeMeal />,
+      //       },
+      //       {
+      //         path: "upcoming-meals",
+      //         element: <UpcomingMeal />,
+      //       },
+    ],
+  },
   {
     path: "/login",
     element: <Login />,
